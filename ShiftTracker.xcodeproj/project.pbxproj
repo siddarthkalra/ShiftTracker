@@ -1,0 +1,554 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F56F652A1DDBAC9600430BAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56F65291DDBAC9600430BAA /* AppDelegate.swift */; };
+		F56F652C1DDBAC9600430BAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56F652B1DDBAC9600430BAA /* ViewController.swift */; };
+		F56F652F1DDBAC9600430BAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56F652D1DDBAC9600430BAA /* Main.storyboard */; };
+		F56F65321DDBAC9600430BAA /* ShiftTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F56F65301DDBAC9600430BAA /* ShiftTracker.xcdatamodeld */; };
+		F56F65341DDBAC9600430BAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F56F65331DDBAC9600430BAA /* Assets.xcassets */; };
+		F56F65371DDBAC9600430BAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56F65351DDBAC9600430BAA /* LaunchScreen.storyboard */; };
+		F56F65421DDBAC9600430BAA /* ShiftTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56F65411DDBAC9600430BAA /* ShiftTrackerTests.swift */; };
+		F56F654D1DDBAC9600430BAA /* ShiftTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56F654C1DDBAC9600430BAA /* ShiftTrackerUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		F56F653E1DDBAC9600430BAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F56F651E1DDBAC9600430BAA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F56F65251DDBAC9600430BAA;
+			remoteInfo = ShiftTracker;
+		};
+		F56F65491DDBAC9600430BAA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F56F651E1DDBAC9600430BAA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F56F65251DDBAC9600430BAA;
+			remoteInfo = ShiftTracker;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		F56F65261DDBAC9600430BAA /* ShiftTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShiftTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F56F65291DDBAC9600430BAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F56F652B1DDBAC9600430BAA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F56F652E1DDBAC9600430BAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F56F65311DDBAC9600430BAA /* ShiftTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShiftTracker.xcdatamodel; sourceTree = "<group>"; };
+		F56F65331DDBAC9600430BAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F56F65361DDBAC9600430BAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F56F65381DDBAC9600430BAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F56F653D1DDBAC9600430BAA /* ShiftTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShiftTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F56F65411DDBAC9600430BAA /* ShiftTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftTrackerTests.swift; sourceTree = "<group>"; };
+		F56F65431DDBAC9600430BAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F56F65481DDBAC9600430BAA /* ShiftTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShiftTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F56F654C1DDBAC9600430BAA /* ShiftTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftTrackerUITests.swift; sourceTree = "<group>"; };
+		F56F654E1DDBAC9600430BAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F56F65231DDBAC9600430BAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F56F653A1DDBAC9600430BAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F56F65451DDBAC9600430BAA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F56F651D1DDBAC9600430BAA = {
+			isa = PBXGroup;
+			children = (
+				F56F65281DDBAC9600430BAA /* ShiftTracker */,
+				F56F65401DDBAC9600430BAA /* ShiftTrackerTests */,
+				F56F654B1DDBAC9600430BAA /* ShiftTrackerUITests */,
+				F56F65271DDBAC9600430BAA /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F56F65271DDBAC9600430BAA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F56F65261DDBAC9600430BAA /* ShiftTracker.app */,
+				F56F653D1DDBAC9600430BAA /* ShiftTrackerTests.xctest */,
+				F56F65481DDBAC9600430BAA /* ShiftTrackerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F56F65281DDBAC9600430BAA /* ShiftTracker */ = {
+			isa = PBXGroup;
+			children = (
+				F56F65291DDBAC9600430BAA /* AppDelegate.swift */,
+				F56F652B1DDBAC9600430BAA /* ViewController.swift */,
+				F56F652D1DDBAC9600430BAA /* Main.storyboard */,
+				F56F65331DDBAC9600430BAA /* Assets.xcassets */,
+				F56F65351DDBAC9600430BAA /* LaunchScreen.storyboard */,
+				F56F65381DDBAC9600430BAA /* Info.plist */,
+				F56F65301DDBAC9600430BAA /* ShiftTracker.xcdatamodeld */,
+			);
+			path = ShiftTracker;
+			sourceTree = "<group>";
+		};
+		F56F65401DDBAC9600430BAA /* ShiftTrackerTests */ = {
+			isa = PBXGroup;
+			children = (
+				F56F65411DDBAC9600430BAA /* ShiftTrackerTests.swift */,
+				F56F65431DDBAC9600430BAA /* Info.plist */,
+			);
+			path = ShiftTrackerTests;
+			sourceTree = "<group>";
+		};
+		F56F654B1DDBAC9600430BAA /* ShiftTrackerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				F56F654C1DDBAC9600430BAA /* ShiftTrackerUITests.swift */,
+				F56F654E1DDBAC9600430BAA /* Info.plist */,
+			);
+			path = ShiftTrackerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F56F65251DDBAC9600430BAA /* ShiftTracker */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F56F65511DDBAC9600430BAA /* Build configuration list for PBXNativeTarget "ShiftTracker" */;
+			buildPhases = (
+				F56F65221DDBAC9600430BAA /* Sources */,
+				F56F65231DDBAC9600430BAA /* Frameworks */,
+				F56F65241DDBAC9600430BAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ShiftTracker;
+			productName = ShiftTracker;
+			productReference = F56F65261DDBAC9600430BAA /* ShiftTracker.app */;
+			productType = "com.apple.product-type.application";
+		};
+		F56F653C1DDBAC9600430BAA /* ShiftTrackerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F56F65541DDBAC9600430BAA /* Build configuration list for PBXNativeTarget "ShiftTrackerTests" */;
+			buildPhases = (
+				F56F65391DDBAC9600430BAA /* Sources */,
+				F56F653A1DDBAC9600430BAA /* Frameworks */,
+				F56F653B1DDBAC9600430BAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F56F653F1DDBAC9600430BAA /* PBXTargetDependency */,
+			);
+			name = ShiftTrackerTests;
+			productName = ShiftTrackerTests;
+			productReference = F56F653D1DDBAC9600430BAA /* ShiftTrackerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		F56F65471DDBAC9600430BAA /* ShiftTrackerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F56F65571DDBAC9600430BAA /* Build configuration list for PBXNativeTarget "ShiftTrackerUITests" */;
+			buildPhases = (
+				F56F65441DDBAC9600430BAA /* Sources */,
+				F56F65451DDBAC9600430BAA /* Frameworks */,
+				F56F65461DDBAC9600430BAA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F56F654A1DDBAC9600430BAA /* PBXTargetDependency */,
+			);
+			name = ShiftTrackerUITests;
+			productName = ShiftTrackerUITests;
+			productReference = F56F65481DDBAC9600430BAA /* ShiftTrackerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F56F651E1DDBAC9600430BAA /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0810;
+				LastUpgradeCheck = 0810;
+				ORGANIZATIONNAME = Sid;
+				TargetAttributes = {
+					F56F65251DDBAC9600430BAA = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 5E8542M445;
+						ProvisioningStyle = Automatic;
+					};
+					F56F653C1DDBAC9600430BAA = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 5E8542M445;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F56F65251DDBAC9600430BAA;
+					};
+					F56F65471DDBAC9600430BAA = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 5E8542M445;
+						ProvisioningStyle = Automatic;
+						TestTargetID = F56F65251DDBAC9600430BAA;
+					};
+				};
+			};
+			buildConfigurationList = F56F65211DDBAC9600430BAA /* Build configuration list for PBXProject "ShiftTracker" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F56F651D1DDBAC9600430BAA;
+			productRefGroup = F56F65271DDBAC9600430BAA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F56F65251DDBAC9600430BAA /* ShiftTracker */,
+				F56F653C1DDBAC9600430BAA /* ShiftTrackerTests */,
+				F56F65471DDBAC9600430BAA /* ShiftTrackerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F56F65241DDBAC9600430BAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F56F65371DDBAC9600430BAA /* LaunchScreen.storyboard in Resources */,
+				F56F65341DDBAC9600430BAA /* Assets.xcassets in Resources */,
+				F56F652F1DDBAC9600430BAA /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F56F653B1DDBAC9600430BAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F56F65461DDBAC9600430BAA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F56F65221DDBAC9600430BAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F56F652C1DDBAC9600430BAA /* ViewController.swift in Sources */,
+				F56F65321DDBAC9600430BAA /* ShiftTracker.xcdatamodeld in Sources */,
+				F56F652A1DDBAC9600430BAA /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F56F65391DDBAC9600430BAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F56F65421DDBAC9600430BAA /* ShiftTrackerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F56F65441DDBAC9600430BAA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F56F654D1DDBAC9600430BAA /* ShiftTrackerUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F56F653F1DDBAC9600430BAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F56F65251DDBAC9600430BAA /* ShiftTracker */;
+			targetProxy = F56F653E1DDBAC9600430BAA /* PBXContainerItemProxy */;
+		};
+		F56F654A1DDBAC9600430BAA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F56F65251DDBAC9600430BAA /* ShiftTracker */;
+			targetProxy = F56F65491DDBAC9600430BAA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		F56F652D1DDBAC9600430BAA /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F56F652E1DDBAC9600430BAA /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F56F65351DDBAC9600430BAA /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F56F65361DDBAC9600430BAA /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F56F654F1DDBAC9600430BAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F56F65501DDBAC9600430BAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F56F65521DDBAC9600430BAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 5E8542M445;
+				INFOPLIST_FILE = ShiftTracker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kalra.sid.ShiftTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		F56F65531DDBAC9600430BAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 5E8542M445;
+				INFOPLIST_FILE = ShiftTracker/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kalra.sid.ShiftTracker;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
+		F56F65551DDBAC9600430BAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 5E8542M445;
+				INFOPLIST_FILE = ShiftTrackerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kalra.sid.ShiftTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShiftTracker.app/ShiftTracker";
+			};
+			name = Debug;
+		};
+		F56F65561DDBAC9600430BAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 5E8542M445;
+				INFOPLIST_FILE = ShiftTrackerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kalra.sid.ShiftTrackerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShiftTracker.app/ShiftTracker";
+			};
+			name = Release;
+		};
+		F56F65581DDBAC9600430BAA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 5E8542M445;
+				INFOPLIST_FILE = ShiftTrackerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kalra.sid.ShiftTrackerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = ShiftTracker;
+			};
+			name = Debug;
+		};
+		F56F65591DDBAC9600430BAA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				DEVELOPMENT_TEAM = 5E8542M445;
+				INFOPLIST_FILE = ShiftTrackerUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.kalra.sid.ShiftTrackerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
+				TEST_TARGET_NAME = ShiftTracker;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F56F65211DDBAC9600430BAA /* Build configuration list for PBXProject "ShiftTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F56F654F1DDBAC9600430BAA /* Debug */,
+				F56F65501DDBAC9600430BAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F56F65511DDBAC9600430BAA /* Build configuration list for PBXNativeTarget "ShiftTracker" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F56F65521DDBAC9600430BAA /* Debug */,
+				F56F65531DDBAC9600430BAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F56F65541DDBAC9600430BAA /* Build configuration list for PBXNativeTarget "ShiftTrackerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F56F65551DDBAC9600430BAA /* Debug */,
+				F56F65561DDBAC9600430BAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		F56F65571DDBAC9600430BAA /* Build configuration list for PBXNativeTarget "ShiftTrackerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F56F65581DDBAC9600430BAA /* Debug */,
+				F56F65591DDBAC9600430BAA /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		F56F65301DDBAC9600430BAA /* ShiftTracker.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				F56F65311DDBAC9600430BAA /* ShiftTracker.xcdatamodel */,
+			);
+			currentVersion = F56F65311DDBAC9600430BAA /* ShiftTracker.xcdatamodel */;
+			path = ShiftTracker.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = F56F651E1DDBAC9600430BAA /* Project object */;
+}
