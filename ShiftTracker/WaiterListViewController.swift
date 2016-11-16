@@ -110,14 +110,7 @@ class WaiterListViewController: UITableViewController {
         let waiter: Waiter = self.waiters[indexPath.section][indexPath.row]
         
         cell.textLabel?.text = waiter.name
-        
-        if (waiter.shifts?.count)! > 0 {
-            cell.detailTextLabel?.text = (waiter.shifts?.anyObject() as! Shift).description
-        }
-        else {
-            cell.detailTextLabel?.text = "No shifts found"
-        }
-        
+        cell.detailTextLabel?.text = (waiter.shifts?.count)! > 0 ? "Shifts completed: \(waiter.shifts!.count)" : "No shifts found"
 
         return cell
     }
