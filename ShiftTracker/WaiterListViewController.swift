@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WaiterListViewController: UITableViewController {
+class WaiterListViewController: UITableViewController, UISearchResultsUpdating {
 
     // MARK: Constants
     
@@ -17,34 +17,40 @@ class WaiterListViewController: UITableViewController {
     // MARK: Members
     
     var waiters: [[Waiter]] = []
+    var filteredWaiters: [Waiter] = []
     var collation: UILocalizedIndexedCollation?
+    let searchController = UISearchController(searchResultsController: nil)
+
+    // MARK: Private Methods
+    
+    private func setupSearchController() {
+        self.searchController.searchResultsUpdater = self
+        self.searchController.dimsBackgroundDuringPresentation = false
+        self.searchController.definesPresentationContext = true
+        self.tableView.tableHeaderView = searchController.searchBar
+    }
+    
+    private func isSearchBarActive() -> Bool {
+        return self.searchController.isActive && self.searchController.searchBar.text != ""
+    }
+    
+    private func filterWaitersForSearchText(searchText: String, scope: String = "All") {
+        let searchTextLowercased = searchText.lowercased()
+        
+        // Flatten out the 2D array and then filter it
+        // This is done because the self.filteredWaiters is a 1D array as our search results
+        // only need 1 section
+        self.filteredWaiters = self.waiters.flatMap({ $0 }).filter({ (waiter: Waiter) -> Bool in
+            return waiter.name!.lowercased().contains(searchTextLowercased)
+        })
+        
+        self.tableView.reloadData()
+    }
     
     // MARK: View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // TEMP 
-        
-//        // add waiter 1
-//        let waiter1: Waiter = Waiter.createWaiter(name: "Zed")
-//        waiter1.addShift(start: Date(), end: Date())
-//        
-//        // add waiter 2
-//        let waiter2: Waiter = Waiter.createWaiter(name: "Ked")
-//        waiter2.addShift(start: Date(), end: Date())
-//        
-//        let waiter3: Waiter = Waiter.createWaiter(name: "Med")
-//        let waiter4: Waiter = Waiter.createWaiter(name: "Sid")
-//        let waiter5: Waiter = Waiter.createWaiter(name: "Larry")
-//        let waiter6: Waiter = Waiter.createWaiter(name: "Jane")
-////        waiter2.addShift(start: Date(), end: Date())
-//        
-//        // save
-//        DatabaseHandler.saveContext()
-        
-        // TEMP
-        
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -53,7 +59,6 @@ class WaiterListViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         if let searchResults = Waiter.getAllShifts() {
-            //self.waiters = searchResults
             self.collation = UILocalizedIndexedCollation.current()
             
             if let collation = self.collation {
@@ -86,6 +91,8 @@ class WaiterListViewController: UITableViewController {
                 self.waiters = tempWaiters
             }
         }
+        
+        self.setupSearchController()
     }
 
     override func didReceiveMemoryWarning() {
@@ -96,18 +103,32 @@ class WaiterListViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
+        if isSearchBarActive() {
+            return 1
+        }
+        
         return self.collation!.sectionTitles.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if self.isSearchBarActive() {
+            return self.filteredWaiters.count
+        }
+        
         return self.waiters[section].count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: WaiterListViewController.WAITER_CELL_ID, for: indexPath)
-
+        let waiter: Waiter
+        
         // Retrieve the waiter for this indexPath
-        let waiter: Waiter = self.waiters[indexPath.section][indexPath.row]
+        if isSearchBarActive() {
+            waiter = self.filteredWaiters[indexPath.row]
+        }
+        else {
+            waiter = self.waiters[indexPath.section][indexPath.row]
+        }
         
         cell.textLabel?.text = waiter.name
         cell.detailTextLabel?.text = (waiter.shifts?.count)! > 0 ? "Shifts completed: \(waiter.shifts!.count)" : "No shifts found"
@@ -124,6 +145,10 @@ class WaiterListViewController: UITableViewController {
     // MARK: Table View Section Methods
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if (self.isSearchBarActive()) {
+            return "Top Matches"
+        }
+        
         return self.collation?.sectionTitles[section];
     }
     
@@ -135,6 +160,11 @@ class WaiterListViewController: UITableViewController {
         return (self.collation?.section(forSectionIndexTitle: index))!
     }
     
+    // MARK: UISearchResultsUpdating Delegate Methods
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        self.filterWaitersForSearchText(searchText: searchController.searchBar.text!)
+    }
 
     /*
     // Override to support conditional editing of the table view.
