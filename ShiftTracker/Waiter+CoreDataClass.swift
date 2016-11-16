@@ -22,6 +22,10 @@ public class Waiter: NSManagedObject {
         return waiter
     }
     
+    class func deleteWaiter(waiter: Waiter) {
+        DatabaseHandler.getContext().delete(waiter)
+    }
+    
     class func getAllShifts() -> [Waiter]? {
         let fetchRequest: NSFetchRequest<Waiter> = Waiter.fetchRequest()
         var searchResults: [Waiter]? = nil

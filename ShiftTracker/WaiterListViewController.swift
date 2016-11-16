@@ -47,6 +47,13 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating {
         self.tableView.reloadData()
     }
     
+    // MARK: Event Handlers
+    
+    
+    @IBAction func didTapAddButton(_ sender: Any) {
+        print("add here")
+    }
+    
     // MARK: View Life Cycle
     
     override func viewDidLoad() {
@@ -138,7 +145,25 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
+            // Waiter to delete
+            let waiter: Waiter
             
+            // Update the in memory data
+            if self.isSearchBarActive() {
+                waiter = self.filteredWaiters[indexPath.row]
+                self.filteredWaiters.remove(at: indexPath.row)
+            }
+            else {
+                waiter = self.waiters[indexPath.section][indexPath.row]
+                self.waiters[indexPath.section].remove(at: indexPath.row)
+            }
+            
+            // Animate the deletion of the row
+            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.right)
+            
+            // Delete waiter from the database
+            // The CoreData context is saved in the AppDelegate
+            Waiter.deleteWaiter(waiter: waiter)
         }
     }
     

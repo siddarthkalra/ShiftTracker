@@ -49,7 +49,11 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Waiters" id="mKb-0F-z5o">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="tLH-JC-2mx"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="tLH-JC-2mx">
+                            <connections>
+                                <action selector="didTapAddButton:" destination="ysU-9j-bip" id="fHc-lo-OvV"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dsd-Qa-T6u" userLabel="First Responder" sceneMemberID="firstResponder"/>
