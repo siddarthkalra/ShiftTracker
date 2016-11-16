@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F51615B61DDBE8310003EC77 /* WaiterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51615B51DDBE8310003EC77 /* WaiterListViewController.swift */; };
 		F51615BA1DDC05C90003EC77 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51615B91DDC05C90003EC77 /* DateHelper.swift */; };
+		F51615BC1DDCC2950003EC77 /* WaiterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51615BB1DDCC2950003EC77 /* WaiterDetailViewController.swift */; };
 		F56F652A1DDBAC9600430BAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56F65291DDBAC9600430BAA /* AppDelegate.swift */; };
 		F56F652C1DDBAC9600430BAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56F652B1DDBAC9600430BAA /* ViewController.swift */; };
 		F56F652F1DDBAC9600430BAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56F652D1DDBAC9600430BAA /* Main.storyboard */; };
@@ -44,6 +45,7 @@
 /* Begin PBXFileReference section */
 		F51615B51DDBE8310003EC77 /* WaiterListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaiterListViewController.swift; sourceTree = "<group>"; };
 		F51615B91DDC05C90003EC77 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
+		F51615BB1DDCC2950003EC77 /* WaiterDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaiterDetailViewController.swift; sourceTree = "<group>"; };
 		F56F65261DDBAC9600430BAA /* ShiftTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShiftTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56F65291DDBAC9600430BAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F56F652B1DDBAC9600430BAA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -96,6 +98,7 @@
 				F56F65351DDBAC9600430BAA /* LaunchScreen.storyboard */,
 				F56F652D1DDBAC9600430BAA /* Main.storyboard */,
 				F51615B51DDBE8310003EC77 /* WaiterListViewController.swift */,
+				F51615BB1DDCC2950003EC77 /* WaiterDetailViewController.swift */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -320,6 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F56F652C1DDBAC9600430BAA /* ViewController.swift in Sources */,
+				F51615BC1DDCC2950003EC77 /* WaiterDetailViewController.swift in Sources */,
 				F51615B61DDBE8310003EC77 /* WaiterListViewController.swift in Sources */,
 				F5C4368E1DDBC281006F6DE1 /* Waiter+CoreDataClass.swift in Sources */,
 				F5C436911DDBC281006F6DE1 /* Shift+CoreDataProperties.swift in Sources */,

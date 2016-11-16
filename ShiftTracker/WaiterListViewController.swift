@@ -8,11 +8,18 @@
 
 import UIKit
 
-class WaiterListViewController: UITableViewController, UISearchResultsUpdating {
+protocol WaiterUpdateDelegate {
+    func add(waiter: Waiter)
+    func delete(waiter: Waiter?, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation)
+}
+
+class WaiterListViewController: UITableViewController, UISearchResultsUpdating, WaiterUpdateDelegate {
 
     // MARK: Constants
     
-    static let WAITER_CELL_ID: String = "waiterCell"
+    static let CELL_ID_WAITER: String = "waiterCell"
+    static let SEGUE_WAITER_DETAIL: String = "waiterDetailSegue"
+    static let SECTION_HEADER_SEARCH: String = "Top Matches"
     
     // MARK: Members
     
@@ -49,9 +56,8 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating {
     
     // MARK: Event Handlers
     
-    
     @IBAction func didTapAddButton(_ sender: Any) {
-        print("add here")
+        self.performSegue(withIdentifier: WaiterListViewController.SEGUE_WAITER_DETAIL, sender: self)
     }
     
     // MARK: View Life Cycle
@@ -107,7 +113,7 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table View Data Source Methods
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         if isSearchBarActive() {
@@ -126,7 +132,7 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: WaiterListViewController.WAITER_CELL_ID, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: WaiterListViewController.CELL_ID_WAITER, for: indexPath)
         let waiter: Waiter
         
         // Retrieve the waiter for this indexPath
@@ -145,33 +151,21 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating {
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
-            // Waiter to delete
-            let waiter: Waiter
-            
-            // Update the in memory data
-            if self.isSearchBarActive() {
-                waiter = self.filteredWaiters[indexPath.row]
-                self.filteredWaiters.remove(at: indexPath.row)
-            }
-            else {
-                waiter = self.waiters[indexPath.section][indexPath.row]
-                self.waiters[indexPath.section].remove(at: indexPath.row)
-            }
-            
-            // Animate the deletion of the row
-            tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.right)
-            
-            // Delete waiter from the database
-            // The CoreData context is saved in the AppDelegate
-            Waiter.deleteWaiter(waiter: waiter)
+            self.delete(waiter: nil, atIndexPath: indexPath, with: UITableViewRowAnimation.right)
         }
+    }
+    
+    // MARK: - Table View Delegate Methods
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: WaiterListViewController.SEGUE_WAITER_DETAIL, sender: indexPath)
     }
     
     // MARK: Table View Section Methods
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (self.isSearchBarActive()) {
-            return "Top Matches"
+            return WaiterListViewController.SECTION_HEADER_SEARCH
         }
         
         return self.collation?.sectionTitles[section];
@@ -190,50 +184,77 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         self.filterWaitersForSearchText(searchText: searchController.searchBar.text!)
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    // MARK: WaiterUpdateDelegate Delegate Methods
+    
+    internal func delete(waiter: Waiter?, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation) {
+        var curWaiter:Waiter? = waiter
+        
+        // Update the in-memory data
+        if self.isSearchBarActive() {
+            if curWaiter == nil {
+                curWaiter = self.filteredWaiters[indexPath.row]
+            }
+            self.filteredWaiters.remove(at: indexPath.row)
+        }
+        else {
+            if curWaiter == nil {
+                curWaiter = self.waiters[indexPath.section][indexPath.row]
+            }
+            self.waiters[indexPath.section].remove(at: indexPath.row)
+        }
+        
+        // delete row
+        tableView.deleteRows(at: [indexPath], with: animation)
+        
+        // Delete waiter from the database
+        // The CoreData context is saved in the AppDelegate
+        if curWaiter != nil {
+            Waiter.deleteWaiter(waiter: curWaiter!)
+        }
     }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+    
+    internal func add(waiter: Waiter) {
+        // Note: the user can't add a waiter while the search bar is active as the
+        // add button is hidden so we don't need to work with self.filteredWaiters in this function
+        if let collation = self.collation {
+            let sectionNumber: Int = collation.section(for: waiter, collationStringSelector: #selector(getter: Waiter.name))
+            var tempArrayForSection:[Waiter] = self.waiters[sectionNumber]
+            
+            tempArrayForSection.append(waiter)
+            
+            let sortedWaiterArray:[Waiter] = collation.sortedArray(from: tempArrayForSection,
+                                                                   collationStringSelector: #selector(getter: Waiter.name)) as! [Waiter]
+            
+            // now use the sorted array
+            self.waiters[sectionNumber] = sortedWaiterArray
+         
+            // update the appropriate section of the table view
+            let indexSet = IndexSet(integersIn: Range(uncheckedBounds: (lower: sectionNumber, upper: 1)))
+            self.tableView.reloadSections(indexSet, with: UITableViewRowAnimation.none)
+        }
     }
-    */
 
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        let destVC = segue.destination
+        if segue.identifier == WaiterListViewController.SEGUE_WAITER_DETAIL {
+            if destVC is WaiterDetailViewController {
+                let waiterDetailVC = destVC as! WaiterDetailViewController
+                waiterDetailVC.delegate = self
+                
+                if sender is IndexPath {
+                    let indexPath: IndexPath = sender as! IndexPath
+                    let waiter: Waiter = self.isSearchBarActive() ? self.filteredWaiters[indexPath.row] : self.waiters[indexPath.section][indexPath.row]
+                    
+                    waiterDetailVC.waiter = waiter
+                    waiterDetailVC.indexPath = indexPath
+                }
+            }
+        }
     }
-    */
-
 }
