@@ -14,6 +14,7 @@ class WaiterDetailViewController: UITableViewController {
     
     static let CELL_ID_PROFILE: String = "waiterProfileCell"
     static let CELL_ID_SHIFT_DETAIL: String = "waiterShiftDetailCell"
+    static let CELL_ID_ADD_SHIFT: String = "waiterAddNewShiftCell"
     static let CELL_ID_DELETE: String = "waiterDeleteCell"
     
     static let SECTION_TITLE_PROFILE: String = "Profile"
@@ -30,6 +31,8 @@ class WaiterDetailViewController: UITableViewController {
     
     static let TAG_PROFILE_LABEL: Int = 1
     static let TAG_PROFILE_TEXT_FIELD: Int = 2
+    static let TAG_ADD_SHIFT_IMG: Int = 3
+    static let TAG_ADD_SHIFT_LABEL: Int = 4
     
     // MARK: Members
     private var waiterShifts: [Shift] = []
@@ -135,13 +138,19 @@ class WaiterDetailViewController: UITableViewController {
             
             break
         case WaiterDetailViewController.SECTION_SHIFTS:
-            cell = tableView.dequeueReusableCell(withIdentifier: WaiterDetailViewController.CELL_ID_SHIFT_DETAIL, for: indexPath)
-            
             // First row of this section is for adding new shifts
             if indexPath.row == 0 {
-                cell?.textLabel?.text = WaiterDetailViewController.ROW_TITLE_NEW_SHIFT
+                cell = tableView.dequeueReusableCell(withIdentifier: WaiterDetailViewController.CELL_ID_ADD_SHIFT, for: indexPath)
+                
+                let imageView = cell?.viewWithTag(WaiterDetailViewController.TAG_ADD_SHIFT_IMG) as! UIImageView
+                imageView.image = imageView.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+                imageView.tintColor = .black
+                
+                let label = cell?.viewWithTag(WaiterDetailViewController.TAG_ADD_SHIFT_LABEL) as! UILabel
+                label.text = WaiterDetailViewController.ROW_TITLE_NEW_SHIFT
             }
             else {
+                cell = tableView.dequeueReusableCell(withIdentifier: WaiterDetailViewController.CELL_ID_SHIFT_DETAIL, for: indexPath)
                 cell?.textLabel?.text = self.waiterShifts[indexPath.row - 1].description
             }
             
@@ -150,6 +159,7 @@ class WaiterDetailViewController: UITableViewController {
             cell = tableView.dequeueReusableCell(withIdentifier: WaiterDetailViewController.CELL_ID_DELETE, for: indexPath)
             cell?.textLabel?.text = WaiterDetailViewController.ROW_TITLE_DELETE
             cell?.textLabel?.textColor = .red
+            
             break
         default:
             cell = nil

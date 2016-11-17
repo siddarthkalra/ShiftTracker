@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -136,6 +137,35 @@
                                     </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="waiterAddNewShiftCell" id="BtL-MW-bky">
+                                <rect key="frame" x="0.0" y="188" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="BtL-MW-bky" id="SA5-r8-3yT">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addIcon" translatesAutoresizingMaskIntoConstraints="NO" id="4Y7-Mw-l7Z">
+                                            <rect key="frame" x="16" y="10" width="25" height="25"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" secondItem="4Y7-Mw-l7Z" secondAttribute="height" multiplier="1:1" id="Nsk-a1-gUf"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCb-w6-uY2">
+                                            <rect key="frame" x="49" y="12" width="42" height="21"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="jCb-w6-uY2" firstAttribute="leading" secondItem="4Y7-Mw-l7Z" secondAttribute="trailing" constant="8" id="46X-cw-GfO"/>
+                                        <constraint firstItem="4Y7-Mw-l7Z" firstAttribute="leading" secondItem="SA5-r8-3yT" secondAttribute="leadingMargin" constant="8" id="6TW-Fp-pLJ"/>
+                                        <constraint firstItem="jCb-w6-uY2" firstAttribute="centerY" secondItem="4Y7-Mw-l7Z" secondAttribute="centerY" id="IYv-lZ-Ik9"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="4Y7-Mw-l7Z" secondAttribute="bottom" id="j3n-cv-c0E"/>
+                                        <constraint firstItem="4Y7-Mw-l7Z" firstAttribute="top" secondItem="SA5-r8-3yT" secondAttribute="topMargin" constant="2" id="tl1-vD-ccH"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                            </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="JLc-Bs-e3S" id="lFD-ym-eNf"/>
@@ -176,4 +206,7 @@
             <point key="canvasLocation" x="108" y="-543.77811094452773"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="addIcon" width="25" height="25"/>
+    </resources>
 </document>
