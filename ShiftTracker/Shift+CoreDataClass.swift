@@ -12,7 +12,9 @@ import CoreData
 @objc(Shift)
 public class Shift: NSManagedObject {
     
+    static let DATE_FORMAT: String = "MMM d h:mma"
+    
     override public var description: String {
-        return "\(DateHelper.stringFromDate(date: self.startTime!, withDateFormat: "MM-dd h:ma")) to \(DateHelper.stringFromDate(date: self.endTime!, withDateFormat: "MM-dd h:ma"))"
+        return "\(DateHelper.stringFromDate(date: self.startTime!, withDateFormat: Shift.DATE_FORMAT)) to \(DateHelper.stringFromDate(date: self.endTime!, withDateFormat: Shift.DATE_FORMAT))"
     }
 }

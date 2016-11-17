@@ -12,6 +12,8 @@ class WaiterDetailViewController: UITableViewController {
 
     // MARK: Constants
     
+    static let SEGUE_CHOOSE_SHIFT: String = "chooseShiftSegue"
+    
     static let CELL_ID_PROFILE: String = "waiterProfileCell"
     static let CELL_ID_SHIFT_DETAIL: String = "waiterShiftDetailCell"
     static let CELL_ID_ADD_SHIFT: String = "waiterAddNewShiftCell"
@@ -35,6 +37,7 @@ class WaiterDetailViewController: UITableViewController {
     static let TAG_ADD_SHIFT_LABEL: Int = 4
     
     // MARK: Members
+    
     private var waiterShifts: [Shift] = []
     
     var delegate: WaiterUpdateDelegate? = nil
@@ -94,7 +97,7 @@ class WaiterDetailViewController: UITableViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
+    // MARK: - Table View Data Source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         if self.waiterTableInfo == nil {
@@ -208,10 +211,12 @@ class WaiterDetailViewController: UITableViewController {
         case WaiterDetailViewController.SECTION_SHIFTS:
             // First row of this section is for adding new shifts
             if indexPath.row == 0 {
+                self.performSegue(withIdentifier: WaiterDetailViewController.SEGUE_CHOOSE_SHIFT, sender: self)
             }
             else {
-                
+                self.performSegue(withIdentifier: WaiterDetailViewController.SEGUE_CHOOSE_SHIFT, sender: indexPath)
             }
+            
             break
         case WaiterDetailViewController.SECTION_DELETE:
             let alertController = UIAlertController(title: "Delete", message: "Are you sure that you want to delete this waiter?", preferredStyle: UIAlertControllerStyle.alert)
@@ -241,5 +246,27 @@ class WaiterDetailViewController: UITableViewController {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        
+        let destVC = segue.destination
+        if segue.identifier == WaiterDetailViewController.SEGUE_CHOOSE_SHIFT {
+            if destVC is ChooseShiftViewController {
+                let chooseShiftVC = destVC as! ChooseShiftViewController
+                chooseShiftVC.delegate = self.delegate
+                
+                if sender is IndexPath {
+                    let indexPath: IndexPath = sender as! IndexPath
+                    
+                    chooseShiftVC.shift = self.waiterShifts[indexPath.row - 1]
+                    chooseShiftVC.indexPath = indexPath
+                }
+            }
+        }
     }
 }
