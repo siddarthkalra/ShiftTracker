@@ -161,6 +161,9 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
         
         cell.textLabel?.text = waiter.name
         cell.detailTextLabel?.text = (waiter.shifts?.count)! > 0 ? "Shifts completed: \(waiter.shifts!.count)" : "No shifts found"
+        
+        cell.textLabel?.adjustsFontSizeToFitWidth = true
+        cell.textLabel?.minimumScaleFactor = 0.8
 
         return cell
     }
@@ -277,7 +280,7 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
         // add new waiter button is hidden so we don't need to manipulate self.filteredWaiters in this function
         if let collation = self.collation {
             let sectionNumber: Int = collation.section(for: waiterTableInfo.waiter, collationStringSelector: #selector(getter: Waiter.name))
-            var tempArrayForSection:[Waiter] = self.waiters[sectionNumber]
+            var tempArrayForSection: [Waiter] = self.waiters[sectionNumber]
             
             tempArrayForSection.append(waiterTableInfo.waiter)
             
@@ -295,8 +298,7 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
             }
             else {
                 // update the appropriate section of the table view
-                let indexSet = IndexSet(integersIn: Range(uncheckedBounds: (lower: sectionNumber, upper: 1)))
-                self.tableView.reloadSections(indexSet, with: animation)
+                self.tableView.reloadSections(IndexSet(integer: sectionNumber), with: animation)
             }
         }
     }
