@@ -9,11 +9,17 @@
 import UIKit
 
 protocol WaiterUpdateDelegate {
-    func add(waiter: Waiter)
-    func delete(waiter: Waiter?, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation)
+    func add(waiterTableInfo: WaiterTableInfo, with animation: UITableViewRowAnimation)
+    func update(waiterTableInfo: WaiterTableInfo, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation)
+    func delete(waiterTableInfo: WaiterTableInfo?, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation)
 }
 
-class WaiterListViewController: UITableViewController, UISearchResultsUpdating, WaiterUpdateDelegate {
+struct WaiterTableInfo {
+    var origIndexPath: IndexPath? // holds the original indexPath
+    var waiter: Waiter
+}
+
+class WaiterListViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate, WaiterUpdateDelegate {
 
     // MARK: Constants
     
@@ -24,9 +30,10 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
     // MARK: Members
     
     var waiters: [[Waiter]] = []
-    var filteredWaiters: [Waiter] = []
+    var filteredWaiters: [WaiterTableInfo] = []
     var collation: UILocalizedIndexedCollation?
     let searchController = UISearchController(searchResultsController: nil)
+    var shouldReloadTable = false
 
     // MARK: Private Methods
     
@@ -34,7 +41,11 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
         self.searchController.searchResultsUpdater = self
         self.searchController.dimsBackgroundDuringPresentation = false
         self.searchController.definesPresentationContext = true
-        self.tableView.tableHeaderView = searchController.searchBar
+        self.searchController.searchBar.delegate = self
+        
+        self.tableView.tableHeaderView = self.searchController.searchBar
+        
+        self.definesPresentationContext = true
     }
     
     private func isSearchBarActive() -> Bool {
@@ -47,9 +58,19 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
         // Flatten out the 2D array and then filter it
         // This is done because the self.filteredWaiters is a 1D array as our search results
         // only need 1 section
-        self.filteredWaiters = self.waiters.flatMap({ $0 }).filter({ (waiter: Waiter) -> Bool in
-            return waiter.name!.lowercased().contains(searchTextLowercased)
-        })
+//        self.filteredWaiters = self.waiters.flatMap({ $0 }).filter({ (waiter: Waiter) -> Bool in
+//            return waiter.name!.lowercased().contains(searchTextLowercased)
+//        })
+        
+        self.filteredWaiters = []
+        
+        for (section, waiterArray) in self.waiters.enumerated() {
+            for (row, waiter) in waiterArray.enumerated() {
+                if waiter.name!.lowercased().contains(searchTextLowercased) {
+                    self.filteredWaiters.append(WaiterTableInfo(origIndexPath: IndexPath(row: row, section: section), waiter: waiter))
+                }
+            }
+        }
         
         self.tableView.reloadData()
     }
@@ -64,12 +85,6 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
         
         if let searchResults = Waiter.getAllShifts() {
             self.collation = UILocalizedIndexedCollation.current()
@@ -105,9 +120,10 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
             }
         }
         
+        self.shouldReloadTable = false
         self.setupSearchController()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -137,7 +153,7 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
         
         // Retrieve the waiter for this indexPath
         if isSearchBarActive() {
-            waiter = self.filteredWaiters[indexPath.row]
+            waiter = self.filteredWaiters[indexPath.row].waiter
         }
         else {
             waiter = self.waiters[indexPath.section][indexPath.row]
@@ -151,7 +167,7 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
-            self.delete(waiter: nil, atIndexPath: indexPath, with: UITableViewRowAnimation.right)
+            self.delete(waiterTableInfo: nil, atIndexPath: indexPath, with: UITableViewRowAnimation.right)
         }
     }
     
@@ -185,43 +201,85 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
         self.filterWaitersForSearchText(searchText: searchController.searchBar.text!)
     }
     
+    // MARK: UISearchBarDelegate Methods
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        if self.shouldReloadTable {
+            self.shouldReloadTable = false
+            self.tableView.reloadData()
+        }
+    }
+    
     // MARK: WaiterUpdateDelegate Delegate Methods
     
-    internal func delete(waiter: Waiter?, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation) {
-        var curWaiter:Waiter? = waiter
+    internal func update(waiterTableInfo: WaiterTableInfo, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation) {
+        if let collation = self.collation {
+            let newSectionNumber: Int = collation.section(for: waiterTableInfo.waiter, collationStringSelector: #selector(getter: Waiter.name))
+            
+            if newSectionNumber != waiterTableInfo.origIndexPath?.section {
+                // The Waiter's name has been changed such that it now belongs in a
+                // different section
+                
+                // Delete Waiter from original section
+                self.waiters[(waiterTableInfo.origIndexPath?.section)!].remove(at: (waiterTableInfo.origIndexPath?.row)!)
+                
+                if isSearchBarActive() {
+                    self.filteredWaiters.remove(at: indexPath.row)
+                }
+                
+                // Delete the row from the table view
+                // Here we don't use origIndexPath because the search bar coulde be active
+                // so we need to use the current indexPath
+                self.tableView.deleteRows(at: [indexPath], with: animation)
+                
+                // Add to new section
+                self.add(waiterTableInfo: waiterTableInfo, with: animation)
+            }
+            else {
+                self.tableView.reloadRows(at: [indexPath], with: animation)
+            }
+        }
+    }
+    
+    internal func delete(waiterTableInfo: WaiterTableInfo?, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation) {
+        var curWaiterTableInfo:WaiterTableInfo? = waiterTableInfo
         
         // Update the in-memory data
         if self.isSearchBarActive() {
-            if curWaiter == nil {
-                curWaiter = self.filteredWaiters[indexPath.row]
+            if curWaiterTableInfo == nil {
+                curWaiterTableInfo = self.filteredWaiters[indexPath.row]
             }
             self.filteredWaiters.remove(at: indexPath.row)
+            
+            // Use the original index path to update the waiters data array
+            self.waiters[(curWaiterTableInfo?.origIndexPath?.section)!].remove(at: (curWaiterTableInfo?.origIndexPath?.row)!)
+            self.shouldReloadTable = true
         }
         else {
-            if curWaiter == nil {
-                curWaiter = self.waiters[indexPath.section][indexPath.row]
+            if curWaiterTableInfo == nil {
+                curWaiterTableInfo = WaiterTableInfo(origIndexPath: indexPath, waiter: self.waiters[indexPath.section][indexPath.row])
             }
             self.waiters[indexPath.section].remove(at: indexPath.row)
         }
         
         // delete row
-        tableView.deleteRows(at: [indexPath], with: animation)
+        self.tableView.deleteRows(at: [indexPath], with: animation)
         
         // Delete waiter from the database
         // The CoreData context is saved in the AppDelegate
-        if curWaiter != nil {
-            Waiter.deleteWaiter(waiter: curWaiter!)
+        if curWaiterTableInfo != nil {
+            Waiter.deleteWaiter(waiter: (curWaiterTableInfo?.waiter)!)
         }
     }
     
-    internal func add(waiter: Waiter) {
+    internal func add(waiterTableInfo: WaiterTableInfo, with animation: UITableViewRowAnimation) {
         // Note: the user can't add a waiter while the search bar is active as the
-        // add button is hidden so we don't need to work with self.filteredWaiters in this function
+        // add new waiter button is hidden so we don't need to manipulate self.filteredWaiters in this function
         if let collation = self.collation {
-            let sectionNumber: Int = collation.section(for: waiter, collationStringSelector: #selector(getter: Waiter.name))
+            let sectionNumber: Int = collation.section(for: waiterTableInfo.waiter, collationStringSelector: #selector(getter: Waiter.name))
             var tempArrayForSection:[Waiter] = self.waiters[sectionNumber]
             
-            tempArrayForSection.append(waiter)
+            tempArrayForSection.append(waiterTableInfo.waiter)
             
             let sortedWaiterArray:[Waiter] = collation.sortedArray(from: tempArrayForSection,
                                                                    collationStringSelector: #selector(getter: Waiter.name)) as! [Waiter]
@@ -229,9 +287,17 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
             // now use the sorted array
             self.waiters[sectionNumber] = sortedWaiterArray
          
-            // update the appropriate section of the table view
-            let indexSet = IndexSet(integersIn: Range(uncheckedBounds: (lower: sectionNumber, upper: 1)))
-            self.tableView.reloadSections(indexSet, with: UITableViewRowAnimation.none)
+            if self.isSearchBarActive() {
+                // Search bar is active and the waiter name has been added
+                // This invalidates the current search results so force a reload
+                // when the search bar becomes inactive
+                self.shouldReloadTable = true
+            }
+            else {
+                // update the appropriate section of the table view
+                let indexSet = IndexSet(integersIn: Range(uncheckedBounds: (lower: sectionNumber, upper: 1)))
+                self.tableView.reloadSections(indexSet, with: animation)
+            }
         }
     }
 
@@ -249,9 +315,11 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
                 
                 if sender is IndexPath {
                     let indexPath: IndexPath = sender as! IndexPath
-                    let waiter: Waiter = self.isSearchBarActive() ? self.filteredWaiters[indexPath.row] : self.waiters[indexPath.section][indexPath.row]
+
+                    waiterDetailVC.waiterTableInfo = self.isSearchBarActive()
+                        ? self.filteredWaiters[indexPath.row]
+                        : WaiterTableInfo(origIndexPath: indexPath, waiter: self.waiters[indexPath.section][indexPath.row])
                     
-                    waiterDetailVC.waiter = waiter
                     waiterDetailVC.indexPath = indexPath
                 }
             }

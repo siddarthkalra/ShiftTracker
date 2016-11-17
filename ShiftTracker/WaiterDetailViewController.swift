@@ -37,10 +37,10 @@ class WaiterDetailViewController: UITableViewController {
     var delegate: WaiterUpdateDelegate? = nil
     var indexPath: IndexPath? = nil
     
-    var waiter: Waiter? = nil {
+    var waiterTableInfo: WaiterTableInfo? = nil {
         // property observer
         didSet {
-            self.waiterShifts = self.waiter?.shifts?.sortedArray(using: [NSSortDescriptor(key: "startTime", ascending: true)]) as! [Shift]
+            self.waiterShifts = self.waiterTableInfo?.waiter.shifts?.sortedArray(using: [NSSortDescriptor(key: "startTime", ascending: true)]) as! [Shift]
         }
     }
     
@@ -51,19 +51,26 @@ class WaiterDetailViewController: UITableViewController {
     // MARK: Event Handlers
     
     @IBAction func didSaveWaiter(_ sender: Any) {
-        if self.waiter == nil {
-            // new waiter
-            let nameTextField = self.tableView.viewWithTag(WaiterDetailViewController.TAG_PROFILE_TEXT_FIELD) as! UITextField
-            
+        let nameTextField = self.tableView.viewWithTag(WaiterDetailViewController.TAG_PROFILE_TEXT_FIELD) as! UITextField
+        
+        if self.waiterTableInfo == nil {
+            // Adding new waiter
             if nameTextField.text! != "" {
-                self.waiter = Waiter.createWaiter(name: nameTextField.text!)
-                self.delegate?.add(waiter: self.waiter!)
+                self.waiterTableInfo = WaiterTableInfo(origIndexPath: nil,
+                                                              waiter: Waiter.createWaiter(name: nameTextField.text!.trimmingCharacters(in: CharacterSet.whitespaces)))
+                self.delegate?.add(waiterTableInfo: self.waiterTableInfo!, with: UITableViewRowAnimation.none)
                 
                 _ = self.navigationController?.popViewController(animated: true)
             }
         }
         else {
-            // updating waiter
+            // Updating existing waiter
+            if nameTextField.text! != "" && self.indexPath != nil {
+                self.waiterTableInfo?.waiter.name = nameTextField.text!.trimmingCharacters(in: CharacterSet.whitespaces)
+                self.delegate?.update(waiterTableInfo: self.waiterTableInfo!, atIndexPath: self.indexPath!, with: UITableViewRowAnimation.none)
+                
+                _ = self.navigationController?.popViewController(animated: true)
+            }
         }
     }
     
@@ -87,7 +94,7 @@ class WaiterDetailViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        if self.waiter == nil {
+        if self.waiterTableInfo == nil {
             // Don't show the delete row when adding a new waiter
             return 2
         }
@@ -121,7 +128,7 @@ class WaiterDetailViewController: UITableViewController {
             
             let textField = cell?.viewWithTag(WaiterDetailViewController.TAG_PROFILE_TEXT_FIELD) as! UITextField
             textField.autocapitalizationType = .words
-            textField.text = self.waiter?.name!
+            textField.text = self.waiterTableInfo?.waiter.name!
             textField.addTarget(self, action:#selector(textFieldDidChange), for: UIControlEvents.editingChanged)
             
             self.saveButton.isEnabled = textField.text! != ""
@@ -173,7 +180,7 @@ class WaiterDetailViewController: UITableViewController {
         case WaiterDetailViewController.SECTION_PROFILE:
             return nil
         case WaiterDetailViewController.SECTION_DELETE:
-            if self.waiter == nil {
+            if self.waiterTableInfo == nil {
                 return nil
             }
         default:
@@ -200,8 +207,8 @@ class WaiterDetailViewController: UITableViewController {
                     self.dismiss(animated: true, completion: nil)
                 })
                 DispatchQueue.main.async(execute: {
-                    if self.waiter != nil && self.indexPath != nil {
-                        self.delegate?.delete(waiter: self.waiter!, atIndexPath: self.indexPath!, with: UITableViewRowAnimation.none)
+                    if self.waiterTableInfo != nil && self.indexPath != nil {
+                        self.delegate?.delete(waiterTableInfo: self.waiterTableInfo!, atIndexPath: self.indexPath!, with: UITableViewRowAnimation.none)
                     }
                     
                     _ = self.navigationController?.popViewController(animated: true)
@@ -219,56 +226,7 @@ class WaiterDetailViewController: UITableViewController {
         default:
             break
         }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
-
-    
-    
-    
-    
-    
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
