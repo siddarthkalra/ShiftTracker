@@ -152,6 +152,9 @@ class WaiterDetailViewController: UITableViewController {
             else {
                 cell = tableView.dequeueReusableCell(withIdentifier: WaiterDetailViewController.CELL_ID_SHIFT_DETAIL, for: indexPath)
                 cell?.textLabel?.text = self.waiterShifts[indexPath.row - 1].description
+                
+                cell?.textLabel?.adjustsFontSizeToFitWidth = true
+                cell?.textLabel?.minimumScaleFactor = WaiterListViewController.LABEL_SCALE_FACTOR
             }
             
             break

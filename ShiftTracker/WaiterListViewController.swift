@@ -27,6 +27,8 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
     static let SEGUE_WAITER_DETAIL: String = "waiterDetailSegue"
     static let SECTION_HEADER_SEARCH: String = "Top Matches"
     
+    static let LABEL_SCALE_FACTOR: CGFloat = 0.8
+    
     // MARK: Members
     
     var waiters: [[Waiter]] = []
@@ -163,7 +165,7 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
         cell.detailTextLabel?.text = (waiter.shifts?.count)! > 0 ? "Shifts completed: \(waiter.shifts!.count)" : "No shifts found"
         
         cell.textLabel?.adjustsFontSizeToFitWidth = true
-        cell.textLabel?.minimumScaleFactor = 0.8
+        cell.textLabel?.minimumScaleFactor = WaiterListViewController.LABEL_SCALE_FACTOR
 
         return cell
     }
