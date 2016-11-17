@@ -254,7 +254,11 @@ class WaiterDetailViewController: UITableViewController {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        let destVC = segue.destination
+        var destVC = segue.destination
+        if destVC is UINavigationController {
+           destVC = (destVC as! UINavigationController).viewControllers.first!
+        }
+        
         if segue.identifier == WaiterDetailViewController.SEGUE_CHOOSE_SHIFT {
             if destVC is ChooseShiftViewController {
                 let chooseShiftVC = destVC as! ChooseShiftViewController

@@ -8,20 +8,16 @@
 
 import UIKit
 
-class ChooseShiftViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ChooseShiftViewController: UITableViewController {
 
     // MARK: Constants
     
     static let CELL_ID_SHIFT_TIME: String = "shiftTimeCell"
     
-    static let TAG_HEADER_LABEL: Int = 1
-    static let TAG_TABLE_CELL_LABEL: Int = 2
-
-//    static let SECONDS_1_MIN: Int = 60
-//    static let MINS_1_HOUR: Int = 60
-    static let HOURS_1_WEEK: Int = 168
+    static let TAG_TABLE_CELL_LABEL: Int = 1
     static let WEEKS_FROM_NOW: Int = 2
-//    static let HOUR_START: Int = 8
+    
+    static let LABEL_SCALE_FACTOR: CGFloat = 0.5
     
     // MARK: Members
 
@@ -31,8 +27,6 @@ class ChooseShiftViewController: UIViewController, UITableViewDelegate, UITableV
     
     private var totalDates: [Date] = []
     private var scrollToRow: Int = 0
-    
-    @IBOutlet weak var tableView: UITableView!
     
     // MARK: Private Methods
     
@@ -70,6 +64,10 @@ class ChooseShiftViewController: UIViewController, UITableViewDelegate, UITableV
         self.dismiss(animated: true, completion: nil)
     }
 
+    @IBAction func didTapSaveButton(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+
     // MARK: View Life Cycle
     
     override func viewDidLoad() {
@@ -80,16 +78,21 @@ class ChooseShiftViewController: UIViewController, UITableViewDelegate, UITableV
         
         self.setupTotalDates()
         
-        let headerLabel = self.view.viewWithTag(ChooseShiftViewController.TAG_HEADER_LABEL) as! UILabel
-        headerLabel.adjustsFontSizeToFitWidth = true
-        headerLabel.minimumScaleFactor = WaiterListViewController.LABEL_SCALE_FACTOR
-        
         if self.shift == nil {
-            headerLabel.text = "Select a Shift"
+            self.title = "Select a Shift"
         }
         else {
-            headerLabel.text = self.shift?.description
+            self.title = self.shift?.description
         }
+        
+        let navigationTitleView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
+        navigationTitleView.backgroundColor = .clear
+        navigationTitleView.textAlignment = .center
+        navigationTitleView.adjustsFontSizeToFitWidth = true
+        navigationTitleView.minimumScaleFactor = ChooseShiftViewController.LABEL_SCALE_FACTOR
+        navigationTitleView.text = self.title
+        
+        self.navigationController?.navigationBar.topItem?.titleView = navigationTitleView
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,15 +108,15 @@ class ChooseShiftViewController: UIViewController, UITableViewDelegate, UITableV
 
     // MARK: - Table View Data Source
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.totalDates.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ChooseShiftViewController.CELL_ID_SHIFT_TIME, for: indexPath)
         
         let label = cell.viewWithTag(ChooseShiftViewController.TAG_TABLE_CELL_LABEL) as! UILabel
