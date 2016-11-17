@@ -17,4 +17,11 @@ class DateHelper {
         
         return dateFormatter.string(from: date as Date)
     }
+    
+    class func stringFromDate(date: NSDate, withDateFormat format: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+
+        return dateFormatter.string(from: date as Date)
+    }
 }

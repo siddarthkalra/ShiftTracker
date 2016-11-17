@@ -103,15 +103,15 @@
                                     </constraints>
                                 </tableViewCellContentView>
                             </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="waiterShiftDetailCell" textLabel="hev-f5-49w" style="IBUITableViewCellStyleDefault" id="ehJ-1Y-YeV">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="waiterShiftDetailCell" textLabel="hev-f5-49w" style="IBUITableViewCellStyleDefault" id="ehJ-1Y-YeV">
                                 <rect key="frame" x="0.0" y="100" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ehJ-1Y-YeV" id="UUm-Dm-uFl">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hev-f5-49w">
-                                            <rect key="frame" x="15" y="0.0" width="345" height="43"/>
+                                            <rect key="frame" x="15" y="0.0" width="325" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -145,13 +145,13 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" tag="3" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="addIcon" translatesAutoresizingMaskIntoConstraints="NO" id="4Y7-Mw-l7Z">
-                                            <rect key="frame" x="16" y="10" width="25" height="25"/>
+                                            <rect key="frame" x="12" y="10" width="25" height="25"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="4Y7-Mw-l7Z" secondAttribute="height" multiplier="1:1" id="Nsk-a1-gUf"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="4" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jCb-w6-uY2">
-                                            <rect key="frame" x="49" y="12" width="42" height="21"/>
+                                            <rect key="frame" x="45" y="12" width="42" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -159,7 +159,7 @@
                                     </subviews>
                                     <constraints>
                                         <constraint firstItem="jCb-w6-uY2" firstAttribute="leading" secondItem="4Y7-Mw-l7Z" secondAttribute="trailing" constant="8" id="46X-cw-GfO"/>
-                                        <constraint firstItem="4Y7-Mw-l7Z" firstAttribute="leading" secondItem="SA5-r8-3yT" secondAttribute="leadingMargin" constant="8" id="6TW-Fp-pLJ"/>
+                                        <constraint firstItem="4Y7-Mw-l7Z" firstAttribute="leading" secondItem="SA5-r8-3yT" secondAttribute="leadingMargin" constant="4" id="6TW-Fp-pLJ"/>
                                         <constraint firstItem="jCb-w6-uY2" firstAttribute="centerY" secondItem="4Y7-Mw-l7Z" secondAttribute="centerY" id="IYv-lZ-Ik9"/>
                                         <constraint firstAttribute="bottomMargin" secondItem="4Y7-Mw-l7Z" secondAttribute="bottom" id="j3n-cv-c0E"/>
                                         <constraint firstItem="4Y7-Mw-l7Z" firstAttribute="top" secondItem="SA5-r8-3yT" secondAttribute="topMargin" constant="2" id="tl1-vD-ccH"/>

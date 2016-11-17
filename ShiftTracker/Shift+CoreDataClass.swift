@@ -13,6 +13,6 @@ import CoreData
 public class Shift: NSManagedObject {
     
     override public var description: String {
-        return "From \(DateHelper.stringFromDate(date: self.startTime!)) to \(DateHelper.stringFromDate(date: self.endTime!))."
+        return "\(DateHelper.stringFromDate(date: self.startTime!, withDateFormat: "MM-dd h:ma")) to \(DateHelper.stringFromDate(date: self.endTime!, withDateFormat: "MM-dd h:ma"))"
     }
 }
