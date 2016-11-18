@@ -41,14 +41,10 @@ public class Waiter: NSManagedObject {
         return searchResults
     }
     
-    // MARK: - Public Methods
+    // MARK: - Methods
     
-    func addShift(start: Date!, end: Date!) {
-        let shift: Shift = NSEntityDescription.insertNewObject(forEntityName: String(describing: Shift.self), into: DatabaseHandler.getContext()) as! Shift
-        shift.startTime =  start as NSDate?
-        shift.endTime = end as NSDate?
-        
-        self.addToShifts(shift)
+    func deleteShift(shift: Shift) {
+        self.removeFromShifts(shift)
+        DatabaseHandler.getContext().delete(shift)
     }
-    
 }

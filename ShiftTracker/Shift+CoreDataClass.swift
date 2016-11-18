@@ -11,10 +11,11 @@ import CoreData
 
 @objc(Shift)
 public class Shift: NSManagedObject {
-    
-    static let DATE_FORMAT: String = "MMM d h:mma"
-    
-    override public var description: String {
-        return "\(DateHelper.stringFromDate(date: self.startTime!, withDateFormat: Shift.DATE_FORMAT)) to \(DateHelper.stringFromDate(date: self.endTime!, withDateFormat: Shift.DATE_FORMAT))"
+    class func createShift(start: Date!, end: Date!) -> Shift {
+        let shift: Shift = NSEntityDescription.insertNewObject(forEntityName: String(describing: Shift.self), into: DatabaseHandler.getContext()) as! Shift
+        shift.startTime =  start as NSDate?
+        shift.endTime = end as NSDate?
+
+        return shift
     }
 }

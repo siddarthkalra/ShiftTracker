@@ -10,9 +10,9 @@
 		F51615B61DDBE8310003EC77 /* WaiterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51615B51DDBE8310003EC77 /* WaiterListViewController.swift */; };
 		F51615BA1DDC05C90003EC77 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51615B91DDC05C90003EC77 /* DateHelper.swift */; };
 		F51615BC1DDCC2950003EC77 /* WaiterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51615BB1DDCC2950003EC77 /* WaiterDetailViewController.swift */; };
+		F53679931DDEB4780077726A /* UIFont+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F53679921DDEB4780077726A /* UIFont+Extensions.swift */; };
 		F56EF6B61DDE21C300A2A6C9 /* ChooseShiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56EF6B51DDE21C300A2A6C9 /* ChooseShiftViewController.swift */; };
 		F56F652A1DDBAC9600430BAA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56F65291DDBAC9600430BAA /* AppDelegate.swift */; };
-		F56F652C1DDBAC9600430BAA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56F652B1DDBAC9600430BAA /* ViewController.swift */; };
 		F56F652F1DDBAC9600430BAA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56F652D1DDBAC9600430BAA /* Main.storyboard */; };
 		F56F65321DDBAC9600430BAA /* ShiftTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F56F65301DDBAC9600430BAA /* ShiftTracker.xcdatamodeld */; };
 		F56F65341DDBAC9600430BAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F56F65331DDBAC9600430BAA /* Assets.xcassets */; };
@@ -47,10 +47,10 @@
 		F51615B51DDBE8310003EC77 /* WaiterListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaiterListViewController.swift; sourceTree = "<group>"; };
 		F51615B91DDC05C90003EC77 /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		F51615BB1DDCC2950003EC77 /* WaiterDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaiterDetailViewController.swift; sourceTree = "<group>"; };
+		F53679921DDEB4780077726A /* UIFont+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+Extensions.swift"; sourceTree = "<group>"; };
 		F56EF6B51DDE21C300A2A6C9 /* ChooseShiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseShiftViewController.swift; sourceTree = "<group>"; };
 		F56F65261DDBAC9600430BAA /* ShiftTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShiftTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56F65291DDBAC9600430BAA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F56F652B1DDBAC9600430BAA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F56F652E1DDBAC9600430BAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F56F65311DDBAC9600430BAA /* ShiftTracker.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ShiftTracker.xcdatamodel; sourceTree = "<group>"; };
 		F56F65331DDBAC9600430BAA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -102,6 +102,7 @@
 				F51615B51DDBE8310003EC77 /* WaiterListViewController.swift */,
 				F51615BB1DDCC2950003EC77 /* WaiterDetailViewController.swift */,
 				F56EF6B51DDE21C300A2A6C9 /* ChooseShiftViewController.swift */,
+				F53679921DDEB4780077726A /* UIFont+Extensions.swift */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -142,7 +143,6 @@
 				F5C436891DDBC10E006F6DE1 /* Database */,
 				F5C436881DDBC0BF006F6DE1 /* Models */,
 				F56F65291DDBAC9600430BAA /* AppDelegate.swift */,
-				F56F652B1DDBAC9600430BAA /* ViewController.swift */,
 				F56F65331DDBAC9600430BAA /* Assets.xcassets */,
 				F56F65381DDBAC9600430BAA /* Info.plist */,
 			);
@@ -325,7 +325,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F56F652C1DDBAC9600430BAA /* ViewController.swift in Sources */,
 				F51615BC1DDCC2950003EC77 /* WaiterDetailViewController.swift in Sources */,
 				F51615B61DDBE8310003EC77 /* WaiterListViewController.swift in Sources */,
 				F5C4368E1DDBC281006F6DE1 /* Waiter+CoreDataClass.swift in Sources */,
@@ -336,6 +335,7 @@
 				F56EF6B61DDE21C300A2A6C9 /* ChooseShiftViewController.swift in Sources */,
 				F5C4367F1DDBBBF6006F6DE1 /* DatabaseHandler.swift in Sources */,
 				F5C436901DDBC281006F6DE1 /* Shift+CoreDataClass.swift in Sources */,
+				F53679931DDEB4780077726A /* UIFont+Extensions.swift in Sources */,
 				F5C4368F1DDBC281006F6DE1 /* Waiter+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

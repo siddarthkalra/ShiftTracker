@@ -8,8 +8,12 @@
 
 import UIKit
 
-class WaiterDetailViewController: UITableViewController {
+protocol ShiftUpdateDelegate {
+    func addShift(shiftData: ShiftData, with animation: UITableViewRowAnimation)
+    func updateShift(shiftData: ShiftData, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation)
+}
 
+class WaiterDetailViewController: UITableViewController, ShiftUpdateDelegate {
     // MARK: Constants
     
     static let SEGUE_CHOOSE_SHIFT: String = "chooseShiftSegue"
@@ -53,6 +57,15 @@ class WaiterDetailViewController: UITableViewController {
     @IBOutlet weak var saveButton: UIBarButtonItem!
     
     // MARK: Private Methods
+    
+    private func getShiftRow(indexPath: IndexPath) -> Int {
+        return indexPath.row - 1
+    }
+    
+    private func getShiftAt(indexPath: IndexPath) -> Shift {
+        // the - 1 compensates for the Add New Shift row
+        return self.waiterShifts[self.getShiftRow(indexPath: indexPath)]
+    }
     
     // MARK: Event Handlers
     
@@ -151,10 +164,14 @@ class WaiterDetailViewController: UITableViewController {
                 
                 let label = cell?.viewWithTag(WaiterDetailViewController.TAG_ADD_SHIFT_LABEL) as! UILabel
                 label.text = WaiterDetailViewController.ROW_TITLE_NEW_SHIFT
+                label.font = label.font.bold()
             }
             else {
+                let shift: Shift = self.getShiftAt(indexPath: indexPath)
+                let shiftData = ShiftData(startTime: (shift.startTime as! Date), endTime: (shift.endTime as! Date))
+                
                 cell = tableView.dequeueReusableCell(withIdentifier: WaiterDetailViewController.CELL_ID_SHIFT_DETAIL, for: indexPath)
-                cell?.textLabel?.text = self.waiterShifts[indexPath.row - 1].description
+                cell?.textLabel?.text = shiftData.description()
                 
                 cell?.textLabel?.adjustsFontSizeToFitWidth = true
                 cell?.textLabel?.minimumScaleFactor = WaiterListViewController.LABEL_SCALE_FACTOR
@@ -190,6 +207,25 @@ class WaiterDetailViewController: UITableViewController {
     }
     
     // MARK: - Table View Delegate Methods
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == UITableViewCellEditingStyle.delete {
+            // Get the shift to delete
+            let shift = self.getShiftAt(indexPath: indexPath)
+            
+            // Remove it from in-memory data array
+            self.waiterShifts.remove(at: self.getShiftRow(indexPath: indexPath))
+            
+            // Update Core Data
+            self.waiterTableInfo?.waiter.deleteShift(shift: shift)
+            
+            // Update table view
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+            
+            // Let delegate know that a shift has been deleted
+            self.delegate?.deleteShift(waiterTableInfo: self.waiterTableInfo!, atIndexPath: self.indexPath!, with: .none)
+        }
+    }
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
         switch indexPath.section {
@@ -248,6 +284,26 @@ class WaiterDetailViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    // MARK: WaiterUpdateDelegate Delegate Methods
+    
+    internal func updateShift(shiftData: ShiftData, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation) {
+        let shift = self.getShiftAt(indexPath: indexPath)
+        shift.startTime = shiftData.startTime as NSDate?
+        shift.endTime = shiftData.endTime as NSDate?
+        
+        self.tableView.reloadRows(at: [indexPath], with: animation)
+    }
+    
+    internal func addShift(shiftData: ShiftData, with animation: UITableViewRowAnimation) {
+        let newShift = Shift.createShift(start: shiftData.startTime, end: shiftData.endTime)
+        self.waiterTableInfo?.waiter.addToShifts(newShift)
+        
+        self.waiterShifts.append(newShift)
+        
+        self.tableView.insertRows(at: [IndexPath(row: self.waiterShifts.count, section: WaiterDetailViewController.SECTION_SHIFTS)], with: animation)
+        self.delegate?.updateShifts(waiterTableInfo: self.waiterTableInfo!, atIndexPath: self.indexPath!, with: animation)
+    }
+    
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -262,12 +318,13 @@ class WaiterDetailViewController: UITableViewController {
         if segue.identifier == WaiterDetailViewController.SEGUE_CHOOSE_SHIFT {
             if destVC is ChooseShiftViewController {
                 let chooseShiftVC = destVC as! ChooseShiftViewController
-                chooseShiftVC.delegate = self.delegate
+                chooseShiftVC.delegate = self
                 
                 if sender is IndexPath {
                     let indexPath: IndexPath = sender as! IndexPath
+                    let shift: Shift = self.getShiftAt(indexPath: indexPath)
                     
-                    chooseShiftVC.shift = self.waiterShifts[indexPath.row - 1]
+                    chooseShiftVC.shiftData = ShiftData(startTime: (shift.startTime as! Date), endTime: (shift.endTime as! Date))
                     chooseShiftVC.indexPath = indexPath
                 }
             }

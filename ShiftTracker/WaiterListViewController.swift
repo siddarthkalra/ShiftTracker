@@ -12,6 +12,8 @@ protocol WaiterUpdateDelegate {
     func add(waiterTableInfo: WaiterTableInfo, with animation: UITableViewRowAnimation)
     func update(waiterTableInfo: WaiterTableInfo, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation)
     func delete(waiterTableInfo: WaiterTableInfo?, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation)
+    func updateShifts(waiterTableInfo: WaiterTableInfo, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation)
+    func deleteShift(waiterTableInfo: WaiterTableInfo, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation)
 }
 
 struct WaiterTableInfo {
@@ -20,7 +22,6 @@ struct WaiterTableInfo {
 }
 
 class WaiterListViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate, WaiterUpdateDelegate {
-
     // MARK: Constants
     
     static let CELL_ID_WAITER: String = "waiterCell"
@@ -60,10 +61,6 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
         // Flatten out the 2D array and then filter it
         // This is done because the self.filteredWaiters is a 1D array as our search results
         // only need 1 section
-//        self.filteredWaiters = self.waiters.flatMap({ $0 }).filter({ (waiter: Waiter) -> Bool in
-//            return waiter.name!.lowercased().contains(searchTextLowercased)
-//        })
-        
         self.filteredWaiters = []
         
         for (section, waiterArray) in self.waiters.enumerated() {
@@ -172,7 +169,7 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
-            self.delete(waiterTableInfo: nil, atIndexPath: indexPath, with: UITableViewRowAnimation.right)
+            self.delete(waiterTableInfo: nil, atIndexPath: indexPath, with: .automatic)
         }
     }
     
@@ -303,6 +300,14 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
                 self.tableView.reloadSections(IndexSet(integer: sectionNumber), with: animation)
             }
         }
+    }
+    
+    internal func updateShifts(waiterTableInfo: WaiterTableInfo, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation) {
+        self.tableView.reloadRows(at: [indexPath], with: animation)
+    }
+    
+    internal func deleteShift(waiterTableInfo: WaiterTableInfo, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation) {
+        self.tableView.reloadRows(at: [indexPath], with: animation)
     }
 
     // MARK: - Navigation

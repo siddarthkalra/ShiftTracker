@@ -24,4 +24,16 @@ class DateHelper {
 
         return dateFormatter.string(from: date as Date)
     }
+    
+    class func stringFromDate(date: Date, withDateFormat format: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        
+        return dateFormatter.string(from: date)
+    }
+    
+    class func datesAreOnSameDay(date1: Date, date2: Date) -> Bool {
+        let userCalender: Calendar = Calendar.current
+        return userCalender.compare(date1, to: date2, toGranularity: .day) == .orderedSame
+    }
 }

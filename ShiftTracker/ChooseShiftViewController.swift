@@ -8,10 +8,42 @@
 
 import UIKit
 
-class ChooseShiftViewController: UITableViewController {
+// Use this struct to set/get Shift data
+// in UIKit code instead of the Core Data Shift class
+// This is because we want to maintain the data integrity
+// of the Core Data class as at any given time within the code
+// for this VC, one or both of the date attributes might be nil
+struct ShiftData {
+    static let DATE_FORMAT = "MMM d h:mma"
+    static let DATE_FORMAT_TIME_ONLY = "h:mma"
+    
+    var startTime: Date?
+    var endTime: Date?
+    
+    func description() -> String {
+        if self.startTime != nil && self.endTime != nil {
+            if DateHelper.datesAreOnSameDay(date1: self.startTime!, date2: self.endTime!) {
+                return "\(DateHelper.stringFromDate(date: self.startTime!, withDateFormat: ShiftData.DATE_FORMAT)) to \(DateHelper.stringFromDate(date: self.endTime!, withDateFormat: ShiftData.DATE_FORMAT_TIME_ONLY))"
+            }
+            
+            return "\(DateHelper.stringFromDate(date: self.startTime!, withDateFormat: ShiftData.DATE_FORMAT)) to \(DateHelper.stringFromDate(date: self.endTime!, withDateFormat: ShiftData.DATE_FORMAT))"
+        }
+        else if self.startTime != nil && self.endTime == nil {
+            return "\(DateHelper.stringFromDate(date: self.startTime!, withDateFormat: ShiftData.DATE_FORMAT)) to ..."
+        }
+        else if self.startTime == nil && self.endTime != nil {
+            return "... to \(DateHelper.stringFromDate(date: self.endTime!, withDateFormat: ShiftData.DATE_FORMAT))"
+        }
+        else {
+            return ChooseShiftViewController.SELECT_SHIFT
+        }
+    }
+}
 
+class ChooseShiftViewController: UITableViewController {
     // MARK: Constants
     
+    static let SELECT_SHIFT: String = "Select Shift Start Time"
     static let CELL_ID_SHIFT_TIME: String = "shiftTimeCell"
     
     static let TAG_TABLE_CELL_LABEL: Int = 1
@@ -21,12 +53,15 @@ class ChooseShiftViewController: UITableViewController {
     
     // MARK: Members
 
-    var shift: Shift?
+    var shiftData: ShiftData?
     var indexPath: IndexPath?
-    var delegate: WaiterUpdateDelegate? = nil
+    var delegate: ShiftUpdateDelegate? = nil
     
     private var totalDates: [Date] = []
     private var scrollToRow: Int = 0
+    private var rowsToSelect: [Int] = []
+    
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     
     // MARK: Private Methods
     
@@ -44,9 +79,13 @@ class ChooseShiftViewController: UITableViewController {
         for idx in 0..<hoursBetweenPastFuture.hour! {
             self.totalDates.append(curDate)
             
-            if self.shift != nil {
-                if curDate == (self.shift?.startTime as! Date) {
+            if self.shiftData != nil {
+                if curDate == self.shiftData?.startTime {
                     self.scrollToRow = idx
+                    self.rowsToSelect.append(idx)
+                }
+                else if curDate == self.shiftData?.endTime {
+                    self.rowsToSelect.append(idx)
                 }
             }
             else if (curDate == now) {
@@ -58,6 +97,12 @@ class ChooseShiftViewController: UITableViewController {
         }
     }
     
+    private func swapStartAndEndTime(shiftData: inout ShiftData?) {
+        let tmpTime = shiftData?.startTime
+        shiftData?.startTime = shiftData?.endTime
+        shiftData?.endTime = tmpTime
+    }
+    
     // MARK: Event Handlers
     
     @IBAction func didTapCancelButton(_ sender: Any) {
@@ -65,7 +110,16 @@ class ChooseShiftViewController: UITableViewController {
     }
 
     @IBAction func didTapSaveButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+        if self.shiftData != nil && self.shiftData?.startTime != nil && self.shiftData?.endTime != nil {
+            if self.indexPath == nil && (self.shiftData?.startTime)! < (self.shiftData?.endTime)! {
+                self.delegate?.addShift(shiftData: self.shiftData!, with: .none)
+            }
+            else if (self.shiftData?.startTime)! < (self.shiftData?.endTime)! {
+                self.delegate?.updateShift(shiftData: self.shiftData!, atIndexPath: self.indexPath!, with: .none)
+            }
+            
+            self.dismiss(animated: true, completion: nil)
+        }
     }
 
     // MARK: View Life Cycle
@@ -73,18 +127,20 @@ class ChooseShiftViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        self.tableView.allowsMultipleSelection = true
         
         self.setupTotalDates()
         
-        if self.shift == nil {
-            self.title = "Select a Shift"
+        if self.shiftData == nil {
+            self.title = ChooseShiftViewController.SELECT_SHIFT
+            self.saveButton.isEnabled = false
         }
         else {
-            self.title = self.shift?.description
+            self.shiftData = ShiftData(startTime: self.shiftData?.startTime, endTime: self.shiftData?.endTime)
+            self.title = self.shiftData?.description()
         }
         
+        // the navigationTitleView will get resized automatically
         let navigationTitleView = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 40))
         navigationTitleView.backgroundColor = .clear
         navigationTitleView.textAlignment = .center
@@ -98,6 +154,9 @@ class ChooseShiftViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     
+        for row: Int in self.rowsToSelect {
+          self.tableView.selectRow(at: IndexPath(row: row, section: 0), animated: false, scrollPosition: UITableViewScrollPosition.none)
+        }
         self.tableView.scrollToRow(at: IndexPath(row: self.scrollToRow, section: 0), at: .top, animated: false)
     }
     
@@ -120,9 +179,78 @@ class ChooseShiftViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: ChooseShiftViewController.CELL_ID_SHIFT_TIME, for: indexPath)
         
         let label = cell.viewWithTag(ChooseShiftViewController.TAG_TABLE_CELL_LABEL) as! UILabel
-        label.text = DateHelper.stringFromDate(date: self.totalDates[indexPath.row] as NSDate, withDateFormat: Shift.DATE_FORMAT)
+        label.text = DateHelper.stringFromDate(date: self.totalDates[indexPath.row] as NSDate, withDateFormat: ShiftData.DATE_FORMAT)
         
         return cell
     }
     
+    // MARK: - Table View Delegate
+    
+    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        self.saveButton.isEnabled = false
+        
+        let dateDeselected = self.totalDates[indexPath.row]
+        if dateDeselected == self.shiftData?.startTime {
+           self.shiftData?.startTime = nil
+        }
+        else if dateDeselected == self.shiftData?.endTime {
+            self.shiftData?.endTime = nil
+        }
+        
+        (self.navigationController?.navigationBar.topItem?.titleView as! UILabel).text = self.shiftData?.description()
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.saveButton.isEnabled = false
+        
+        if self.shiftData == nil || (self.shiftData?.startTime == nil && self.shiftData?.endTime == nil) {
+           self.shiftData = ShiftData(startTime: self.totalDates[indexPath.row], endTime: nil)
+        }
+        else {
+            if self.shiftData?.startTime != nil && self.shiftData?.endTime == nil {
+                self.shiftData?.endTime = self.totalDates[indexPath.row]
+                
+                // swap start and end times if end time is before start time
+                if (self.shiftData?.endTime)! < (self.shiftData?.startTime)! {
+                    // pass by reference
+                    self.swapStartAndEndTime(shiftData: &self.shiftData)
+                }
+                
+                self.saveButton.isEnabled = true
+            }
+            else if self.shiftData?.startTime == nil && self.shiftData?.endTime != nil {
+                self.shiftData?.startTime = self.totalDates[indexPath.row]
+                
+                // swap start and end times if end time is before start time
+                if (self.shiftData?.endTime)! < (self.shiftData?.startTime)! {
+                    // pass by reference
+                    self.swapStartAndEndTime(shiftData: &self.shiftData)
+                }
+                
+                self.saveButton.isEnabled = true
+            }
+            else if self.shiftData?.startTime != nil && self.shiftData?.endTime != nil {
+                self.shiftData?.startTime = self.totalDates[indexPath.row]
+                self.shiftData?.endTime = nil
+                
+                let indexPathsOfVisibleRows: [IndexPath] = tableView.indexPathsForVisibleRows!
+                for curIndexPath in tableView.indexPathsForSelectedRows! {
+                    // don't deselect this newly selected row
+                    if curIndexPath == indexPath {
+                        continue
+                    }
+                    
+                    if indexPathsOfVisibleRows.contains(curIndexPath) {
+                        tableView.deselectRow(at: curIndexPath, animated: true)
+                    }
+                    else {
+                        tableView.deselectRow(at: curIndexPath, animated: false)
+                    }
+                    
+                }
+            }
+        }
+        
+        (self.navigationController?.navigationBar.topItem?.titleView as! UILabel).text = self.shiftData?.description()
+    }
 }
