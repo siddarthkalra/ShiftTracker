@@ -97,12 +97,12 @@
 		F51615B71DDBE9CA0003EC77 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				F57A7DED1DDF67F4007C74C1 /* Extensions */,
 				F56F65351DDBAC9600430BAA /* LaunchScreen.storyboard */,
 				F56F652D1DDBAC9600430BAA /* Main.storyboard */,
 				F51615B51DDBE8310003EC77 /* WaiterListViewController.swift */,
 				F51615BB1DDCC2950003EC77 /* WaiterDetailViewController.swift */,
 				F56EF6B51DDE21C300A2A6C9 /* ChooseShiftViewController.swift */,
-				F53679921DDEB4780077726A /* UIFont+Extensions.swift */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -165,6 +165,14 @@
 				F56F654E1DDBAC9600430BAA /* Info.plist */,
 			);
 			path = ShiftTrackerUITests;
+			sourceTree = "<group>";
+		};
+		F57A7DED1DDF67F4007C74C1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F53679921DDEB4780077726A /* UIFont+Extensions.swift */,
+			);
+			name = Extensions;
 			sourceTree = "<group>";
 		};
 		F5C436881DDBC0BF006F6DE1 /* Models */ = {

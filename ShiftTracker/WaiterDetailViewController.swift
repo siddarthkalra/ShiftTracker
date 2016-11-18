@@ -231,6 +231,12 @@ class WaiterDetailViewController: UITableViewController, ShiftUpdateDelegate {
         switch indexPath.section {
         case WaiterDetailViewController.SECTION_PROFILE:
             return nil
+        case WaiterDetailViewController.SECTION_SHIFTS:
+            // Don't allow a new shift to be created before the Waiter
+            // object has been initialized
+            if indexPath.row == 0 && self.waiterTableInfo == nil {
+                return nil
+            }
         case WaiterDetailViewController.SECTION_DELETE:
             if self.waiterTableInfo == nil {
                 return nil
