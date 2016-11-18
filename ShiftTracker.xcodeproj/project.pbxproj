@@ -28,6 +28,7 @@
 		F5C4368F1DDBC281006F6DE1 /* Waiter+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4368B1DDBC281006F6DE1 /* Waiter+CoreDataProperties.swift */; };
 		F5C436901DDBC281006F6DE1 /* Shift+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4368C1DDBC281006F6DE1 /* Shift+CoreDataClass.swift */; };
 		F5C436911DDBC281006F6DE1 /* Shift+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4368D1DDBC281006F6DE1 /* Shift+CoreDataProperties.swift */; };
+		F5F11C331DDFA5BA00BDDDB4 /* DataHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F11C321DDFA5BA00BDDDB4 /* DataHelperTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +76,7 @@
 		F5C4368B1DDBC281006F6DE1 /* Waiter+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Waiter+CoreDataProperties.swift"; path = "ShiftTracker/Waiter+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F5C4368C1DDBC281006F6DE1 /* Shift+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Shift+CoreDataClass.swift"; path = "ShiftTracker/Shift+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F5C4368D1DDBC281006F6DE1 /* Shift+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Shift+CoreDataProperties.swift"; path = "ShiftTracker/Shift+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		F5F11C321DDFA5BA00BDDDB4 /* DataHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHelperTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,6 +166,7 @@
 			children = (
 				F56F65411DDBAC9600430BAA /* ShiftTrackerTests.swift */,
 				F56F65431DDBAC9600430BAA /* Info.plist */,
+				F5F11C321DDFA5BA00BDDDB4 /* DataHelperTests.swift */,
 			);
 			path = ShiftTrackerTests;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F56F65421DDBAC9600430BAA /* ShiftTrackerTests.swift in Sources */,
+				F5F11C331DDFA5BA00BDDDB4 /* DataHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
