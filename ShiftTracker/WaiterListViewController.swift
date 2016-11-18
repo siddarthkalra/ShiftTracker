@@ -21,7 +21,9 @@ struct WaiterTableInfo {
     var waiter: Waiter
 }
 
-class WaiterListViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate, WaiterUpdateDelegate {
+class WaiterListViewController: UITableViewController, UISearchResultsUpdating, UISearchBarDelegate,
+                                WaiterUpdateDelegate, UINavigationControllerDelegate {
+    
     // MARK: Constants
     
     static let CELL_ID_WAITER: String = "waiterCell"
@@ -84,6 +86,8 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.delegate = self;
         
         if let searchResults = Waiter.getAllShifts() {
             self.collation = UILocalizedIndexedCollation.current()
@@ -308,6 +312,12 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
     
     internal func deleteShift(waiterTableInfo: WaiterTableInfo, atIndexPath indexPath: IndexPath, with animation: UITableViewRowAnimation) {
         self.tableView.reloadRows(at: [indexPath], with: animation)
+    }
+    
+    // MARK: - UINavigationControllerDelegate
+
+    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationControllerOperation, from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return FadeTransitionAnimator()
     }
 
     // MARK: - Navigation
