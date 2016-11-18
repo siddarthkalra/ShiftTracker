@@ -104,6 +104,21 @@ class WaiterDetailViewController: UITableViewController, ShiftUpdateDelegate {
 
         self.saveButton.isEnabled = false
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // since self.view is a subclass of UIScrollView getting views to stick to the bottom is difficult
+        // Thus we will use the navigation controller's view
+        if self.waiterShifts.count > 0 {
+            self.navigationController?.view.showToolTip("Swipe left on a shift to delete it")
+        }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.view.hideToolTip()
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -235,6 +250,14 @@ class WaiterDetailViewController: UITableViewController, ShiftUpdateDelegate {
             // Don't allow a new shift to be created before the Waiter
             // object has been initialized
             if indexPath.row == 0 && self.waiterTableInfo == nil {
+                if self.navigationController?.view.viewWithTag(UIView.TAG_TOOL_TIP) == nil {
+                    debugPrint("queued tool tip")
+                    self.navigationController?.view.showToolTip("Please choose a name and press save before creating a shift")
+                }
+                else {
+                    debugPrint("Already showing tool tip")
+                }
+                
                 return nil
             }
         case WaiterDetailViewController.SECTION_DELETE:

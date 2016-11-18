@@ -160,6 +160,11 @@ class ChooseShiftViewController: UITableViewController {
         self.tableView.scrollToRow(at: IndexPath(row: self.scrollToRow, section: 0), at: .top, animated: false)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.view.hideToolTip()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -204,7 +209,11 @@ class ChooseShiftViewController: UITableViewController {
         self.saveButton.isEnabled = false
         
         if self.shiftData == nil || (self.shiftData?.startTime == nil && self.shiftData?.endTime == nil) {
-           self.shiftData = ShiftData(startTime: self.totalDates[indexPath.row], endTime: nil)
+            self.shiftData = ShiftData(startTime: self.totalDates[indexPath.row], endTime: nil)
+
+            // since self.view is a subclass of UIScrollView getting views to stick to the bottom is difficult
+            // Thus we will use the navigation controller's view
+            self.navigationController?.view.showToolTip("Now select a shift end time")
         }
         else {
             if self.shiftData?.startTime != nil && self.shiftData?.endTime == nil {
