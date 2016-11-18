@@ -89,7 +89,7 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
         
         self.navigationController?.delegate = self;
         
-        if let searchResults = Waiter.getAllShifts() {
+        if let searchResults = Waiter.getAllWaiters() {
             self.collation = UILocalizedIndexedCollation.current()
             
             if let collation = self.collation {

@@ -17,7 +17,6 @@
 		F56F65321DDBAC9600430BAA /* ShiftTracker.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = F56F65301DDBAC9600430BAA /* ShiftTracker.xcdatamodeld */; };
 		F56F65341DDBAC9600430BAA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F56F65331DDBAC9600430BAA /* Assets.xcassets */; };
 		F56F65371DDBAC9600430BAA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F56F65351DDBAC9600430BAA /* LaunchScreen.storyboard */; };
-		F56F65421DDBAC9600430BAA /* ShiftTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56F65411DDBAC9600430BAA /* ShiftTrackerTests.swift */; };
 		F56F654D1DDBAC9600430BAA /* ShiftTrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56F654C1DDBAC9600430BAA /* ShiftTrackerUITests.swift */; };
 		F57A7DEF1DDF6DB3007C74C1 /* FadeTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7DEE1DDF6DB3007C74C1 /* FadeTransitionAnimator.swift */; };
 		F57A7DF11DDF78D3007C74C1 /* ToolTipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F57A7DF01DDF78D3007C74C1 /* ToolTipView.swift */; };
@@ -29,6 +28,7 @@
 		F5C436901DDBC281006F6DE1 /* Shift+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4368C1DDBC281006F6DE1 /* Shift+CoreDataClass.swift */; };
 		F5C436911DDBC281006F6DE1 /* Shift+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4368D1DDBC281006F6DE1 /* Shift+CoreDataProperties.swift */; };
 		F5F11C331DDFA5BA00BDDDB4 /* DataHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F11C321DDFA5BA00BDDDB4 /* DataHelperTests.swift */; };
+		F5F11C351DDFB15C00BDDDB4 /* WaiterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F11C341DDFB15C00BDDDB4 /* WaiterTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +62,6 @@
 		F56F65361DDBAC9600430BAA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F56F65381DDBAC9600430BAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F56F653D1DDBAC9600430BAA /* ShiftTrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShiftTrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F56F65411DDBAC9600430BAA /* ShiftTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftTrackerTests.swift; sourceTree = "<group>"; };
 		F56F65431DDBAC9600430BAA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F56F65481DDBAC9600430BAA /* ShiftTrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShiftTrackerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F56F654C1DDBAC9600430BAA /* ShiftTrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftTrackerUITests.swift; sourceTree = "<group>"; };
@@ -77,6 +76,7 @@
 		F5C4368C1DDBC281006F6DE1 /* Shift+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Shift+CoreDataClass.swift"; path = "ShiftTracker/Shift+CoreDataClass.swift"; sourceTree = "<group>"; };
 		F5C4368D1DDBC281006F6DE1 /* Shift+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Shift+CoreDataProperties.swift"; path = "ShiftTracker/Shift+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F5F11C321DDFA5BA00BDDDB4 /* DataHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHelperTests.swift; sourceTree = "<group>"; };
+		F5F11C341DDFB15C00BDDDB4 /* WaiterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaiterTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -164,9 +164,9 @@
 		F56F65401DDBAC9600430BAA /* ShiftTrackerTests */ = {
 			isa = PBXGroup;
 			children = (
-				F56F65411DDBAC9600430BAA /* ShiftTrackerTests.swift */,
 				F56F65431DDBAC9600430BAA /* Info.plist */,
 				F5F11C321DDFA5BA00BDDDB4 /* DataHelperTests.swift */,
+				F5F11C341DDFB15C00BDDDB4 /* WaiterTests.swift */,
 			);
 			path = ShiftTrackerTests;
 			sourceTree = "<group>";
@@ -379,7 +379,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F56F65421DDBAC9600430BAA /* ShiftTrackerTests.swift in Sources */,
+				F5F11C351DDFB15C00BDDDB4 /* WaiterTests.swift in Sources */,
 				F5F11C331DDFA5BA00BDDDB4 /* DataHelperTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

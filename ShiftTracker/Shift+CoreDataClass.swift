@@ -11,6 +11,9 @@ import CoreData
 
 @objc(Shift)
 public class Shift: NSManagedObject {
+    
+    // MARK: - Static Methods
+    
     class func createShift(start: Date!, end: Date!) -> Shift {
         let shift: Shift = NSEntityDescription.insertNewObject(forEntityName: String(describing: Shift.self), into: DatabaseHandler.getContext()) as! Shift
         shift.startTime =  start as NSDate?
