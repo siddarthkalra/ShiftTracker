@@ -105,6 +105,7 @@ class WaiterDetailViewController: UITableViewController, ShiftUpdateDelegate {
 
         self.saveButton.isEnabled = false
         self.shouldShowSwipeToDelToolTip = false
+        self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
     }
     
     override func viewDidAppear(_ animated: Bool) {
