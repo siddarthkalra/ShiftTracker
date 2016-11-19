@@ -2,7 +2,7 @@
 //  ChooseShiftViewController.swift
 //  ShiftTracker
 //
-//  Created by Crul on 2016-11-17.
+//  Created by Sid on 2016-11-17.
 //  Copyright © 2016 Sid. All rights reserved.
 //
 
