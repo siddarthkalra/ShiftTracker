@@ -176,11 +176,6 @@ class ChooseShiftViewController: UITableViewController {
         super.viewWillDisappear(animated)
         self.navigationController?.view.hideToolTip()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     // MARK: - Table View Data Source
     

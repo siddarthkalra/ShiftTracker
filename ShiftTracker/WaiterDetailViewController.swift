@@ -124,11 +124,6 @@ class WaiterDetailViewController: UITableViewController, ShiftUpdateDelegate {
         self.navigationController?.view.hideToolTip()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
     // MARK: - Table View Data Source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
