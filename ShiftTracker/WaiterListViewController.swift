@@ -89,6 +89,8 @@ class WaiterListViewController: UITableViewController, UISearchResultsUpdating, 
         
         self.navigationController?.delegate = self;
         
+        self.tableView.sectionIndexColor = StyleManager.themeColor;
+        
         if let searchResults = Waiter.getAllWaiters() {
             self.collation = UILocalizedIndexedCollation.current()
             

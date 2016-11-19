@@ -19,6 +19,8 @@ class ToolTipView: UIView {
         self.backgroundColor = StyleManager.themeColor
         self.titleLabel.numberOfLines = 0
         self.titleLabel.lineBreakMode = .byWordWrapping
+        self.titleLabel.font = self.titleLabel.font.bold()
+        self.titleLabel.font = self.titleLabel.font.withSize(15.0)
     }
     
     override func willMove(toSuperview newSuperview: UIView?) {
@@ -26,13 +28,4 @@ class ToolTipView: UIView {
         
         self.titleLabel.text = self.title
     }
-    
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
-
 }

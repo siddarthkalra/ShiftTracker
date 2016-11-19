@@ -43,6 +43,7 @@ class WaiterDetailViewController: UITableViewController, ShiftUpdateDelegate {
     // MARK: Members
     
     private var waiterShifts: [Shift] = []
+    private var shouldShowSwipeToDelToolTip = false
     
     var delegate: WaiterUpdateDelegate? = nil
     var indexPath: IndexPath? = nil
@@ -103,6 +104,7 @@ class WaiterDetailViewController: UITableViewController, ShiftUpdateDelegate {
         super.viewDidLoad()
 
         self.saveButton.isEnabled = false
+        self.shouldShowSwipeToDelToolTip = false
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -110,7 +112,8 @@ class WaiterDetailViewController: UITableViewController, ShiftUpdateDelegate {
         
         // since self.view is a subclass of UIScrollView getting views to stick to the bottom is difficult
         // Thus we will use the navigation controller's view
-        if self.waiterShifts.count > 0 {
+        if self.waiterShifts.count > 0 && self.shouldShowSwipeToDelToolTip {
+            self.shouldShowSwipeToDelToolTip = false
             self.navigationController?.view.showToolTip("Swipe left on a shift to delete it")
         }
     }
@@ -332,6 +335,8 @@ class WaiterDetailViewController: UITableViewController, ShiftUpdateDelegate {
         
         self.tableView.insertRows(at: [IndexPath(row: self.waiterShifts.count, section: WaiterDetailViewController.SECTION_SHIFTS)], with: animation)
         self.delegate?.updateShifts(waiterTableInfo: self.waiterTableInfo!, atIndexPath: self.indexPath!, with: animation)
+        
+        self.shouldShowSwipeToDelToolTip = true
     }
     
     // MARK: - Navigation
