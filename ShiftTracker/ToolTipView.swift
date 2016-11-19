@@ -16,6 +16,7 @@ class ToolTipView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.backgroundColor = StyleManager.themeColor
         self.titleLabel.numberOfLines = 0
         self.titleLabel.lineBreakMode = .byWordWrapping
     }

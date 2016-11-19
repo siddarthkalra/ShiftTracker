@@ -29,6 +29,7 @@
 		F5C436911DDBC281006F6DE1 /* Shift+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C4368D1DDBC281006F6DE1 /* Shift+CoreDataProperties.swift */; };
 		F5F11C331DDFA5BA00BDDDB4 /* DataHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F11C321DDFA5BA00BDDDB4 /* DataHelperTests.swift */; };
 		F5F11C351DDFB15C00BDDDB4 /* WaiterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F11C341DDFB15C00BDDDB4 /* WaiterTests.swift */; };
+		F5F11C391DDFCCA700BDDDB4 /* StyleManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5F11C381DDFCCA700BDDDB4 /* StyleManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		F5C4368D1DDBC281006F6DE1 /* Shift+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Shift+CoreDataProperties.swift"; path = "ShiftTracker/Shift+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F5F11C321DDFA5BA00BDDDB4 /* DataHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataHelperTests.swift; sourceTree = "<group>"; };
 		F5F11C341DDFB15C00BDDDB4 /* WaiterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaiterTests.swift; sourceTree = "<group>"; };
+		F5F11C381DDFCCA700BDDDB4 /* StyleManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				F51615B51DDBE8310003EC77 /* WaiterListViewController.swift */,
 				F51615BB1DDCC2950003EC77 /* WaiterDetailViewController.swift */,
 				F56EF6B51DDE21C300A2A6C9 /* ChooseShiftViewController.swift */,
+				F5F11C381DDFCCA700BDDDB4 /* StyleManager.swift */,
 			);
 			name = Interface;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				F57A7DEF1DDF6DB3007C74C1 /* FadeTransitionAnimator.swift in Sources */,
 				F51615BA1DDC05C90003EC77 /* DateHelper.swift in Sources */,
 				F56F652A1DDBAC9600430BAA /* AppDelegate.swift in Sources */,
+				F5F11C391DDFCCA700BDDDB4 /* StyleManager.swift in Sources */,
 				F56EF6B61DDE21C300A2A6C9 /* ChooseShiftViewController.swift in Sources */,
 				F5C4367F1DDBBBF6006F6DE1 /* DatabaseHandler.swift in Sources */,
 				F57A7DF11DDF78D3007C74C1 /* ToolTipView.swift in Sources */,

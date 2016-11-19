@@ -175,9 +175,10 @@ class WaiterDetailViewController: UITableViewController, ShiftUpdateDelegate {
                 
                 let imageView = cell?.viewWithTag(WaiterDetailViewController.TAG_ADD_SHIFT_IMG) as! UIImageView
                 imageView.image = imageView.image?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
-                imageView.tintColor = .black
+                imageView.tintColor = StyleManager.themeColor
                 
                 let label = cell?.viewWithTag(WaiterDetailViewController.TAG_ADD_SHIFT_LABEL) as! UILabel
+                label.textColor = StyleManager.themeColor
                 label.text = WaiterDetailViewController.ROW_TITLE_NEW_SHIFT
                 label.font = label.font.bold()
             }

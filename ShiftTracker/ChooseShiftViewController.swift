@@ -40,6 +40,18 @@ struct ShiftData {
     }
 }
 
+class ChooseShiftCell: UITableViewCell {
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+        
+        // Set background color here because using the UIAppearance class doesn't
+        // work as expected for when multiselection is on
+        let view = UIView()
+        view.backgroundColor = StyleManager.themeColor
+        selectedBackgroundView = view
+    }
+}
+
 class ChooseShiftViewController: UITableViewController {
     // MARK: Constants
     
@@ -182,6 +194,7 @@ class ChooseShiftViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ChooseShiftViewController.CELL_ID_SHIFT_TIME, for: indexPath)
+        cell.selectionStyle = .blue
         
         let label = cell.viewWithTag(ChooseShiftViewController.TAG_TABLE_CELL_LABEL) as! UILabel
         label.text = DateHelper.stringFromDate(date: self.totalDates[indexPath.row] as NSDate, withDateFormat: ShiftData.DATE_FORMAT)
