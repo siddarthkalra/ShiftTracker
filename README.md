@@ -1,9 +1,11 @@
-ShiftTracker is an app that allows you to manage waiters working in a restaurant. You can do the following:
+# ShiftTracker
+
+ShiftTracker is an iOS app that allows you to manage waiters working in a restaurant. You can do the following:
 
 * View a list of waiters
-    * Add/update/delete each waiter
+    * Add/update/delete a waiter
 * View the shifts that a waiter has worked
-    * Add Add/update/delete a shift
+    * Add/update/delete a shift
 
 # iOS Technologies Used
 
@@ -12,4 +14,3 @@ ShiftTracker is an app that allows you to manage waiters working in a restaurant
 * App Styling - UIAppearance
 * Animations - UIViewController custom transitions and UIView animations
 * Database - Core Data
-
