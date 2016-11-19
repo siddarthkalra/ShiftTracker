@@ -26,7 +26,7 @@ extension UIView {
         toolTipView.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(toolTipView)
         
-        let toolTipHeight:CGFloat = self.bounds.size.height * 0.1
+        let toolTipHeight:CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? self.bounds.size.height * 0.1 : self.bounds.size.height * 0.05
         self.addConstraint(NSLayoutConstraint(item: toolTipView,
                                               attribute: .leading,
                                               relatedBy: .equal,

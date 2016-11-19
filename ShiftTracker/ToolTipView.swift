@@ -20,7 +20,10 @@ class ToolTipView: UIView {
         self.titleLabel.numberOfLines = 0
         self.titleLabel.lineBreakMode = .byWordWrapping
         self.titleLabel.font = self.titleLabel.font.bold()
-        self.titleLabel.font = self.titleLabel.font.withSize(15.0)
+        
+        if UIDevice.current.userInterfaceIdiom == .phone {
+            self.titleLabel.font = self.titleLabel.font.withSize(15.0)
+        }
     }
     
     override func willMove(toSuperview newSuperview: UIView?) {
