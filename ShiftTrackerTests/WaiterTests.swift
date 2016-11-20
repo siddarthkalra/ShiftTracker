@@ -36,7 +36,7 @@ class WaiterTests: XCTestCase {
     
     func testCreateWaiter() {
         let waiter = Waiter.createWaiter(name: "Test Waiter")
-        assert(waiter.name == "Test Waiter")
+        XCTAssertTrue(waiter.name == "Test Waiter")
         
         // save to disk
         DatabaseHandler.saveContext()
@@ -46,17 +46,17 @@ class WaiterTests: XCTestCase {
         let searchResults: [Waiter] = try! DatabaseHandler.getContext().fetch(fetchRequest) as [Waiter]
         
         // check that only 1 result was returned
-        assert(searchResults.count == 1)
+        XCTAssertTrue(searchResults.count == 1)
         
         let savedWaiter = searchResults.first
         
         // check that the saved waiter matches the created waiter
-        assert(waiter.name == savedWaiter?.name)
+        XCTAssertTrue(waiter.name == savedWaiter?.name)
     }
     
     func testDeleteWaiter() {
         let waiter = Waiter.createWaiter(name: "Test Waiter")
-        assert(waiter.name == "Test Waiter")
+        XCTAssertTrue(waiter.name == "Test Waiter")
 
         // save to disk
         DatabaseHandler.saveContext()
@@ -66,12 +66,12 @@ class WaiterTests: XCTestCase {
         let searchResults: [Waiter] = try! DatabaseHandler.getContext().fetch(fetchRequest) as [Waiter]
         
         // check that only 1 result was returned
-        assert(searchResults.count == 1)
+        XCTAssertTrue(searchResults.count == 1)
         
         let savedWaiter = searchResults.first
         
         // check that the saved waiter matches the created waiter
-        assert(waiter.name == savedWaiter?.name)
+        XCTAssertTrue(waiter.name == savedWaiter?.name)
         
         Waiter.deleteWaiter(waiter: savedWaiter!)
         
@@ -83,7 +83,7 @@ class WaiterTests: XCTestCase {
         let searchResults2: [Waiter] = try! DatabaseHandler.getContext().fetch(fetchRequest2) as [Waiter]
         
         // check that only 0 waiters were returned
-        assert(searchResults2.count == 0)
+        XCTAssertTrue(searchResults2.count == 0)
     }
     
     func testGetAllWaiters() {
@@ -95,16 +95,16 @@ class WaiterTests: XCTestCase {
         DatabaseHandler.saveContext()
         
         let waitersSearchResults = Waiter.getAllWaiters()
-        assert(waitersSearchResults?.count == 3)
+        XCTAssertTrue(waitersSearchResults?.count == 3)
         
         // sort the results
         let waiterSortedSearchResults = waitersSearchResults?.sorted(by: { (waiter1: Waiter, waiter2: Waiter) -> Bool in
             return waiter1.name! < waiter2.name!
         })
         
-        assert(waiterSortedSearchResults?[0].name == "Test Waiter1")
-        assert(waiterSortedSearchResults?[1].name == "Test Waiter2")
-        assert(waiterSortedSearchResults?[2].name == "Test Waiter3")
+        XCTAssertTrue(waiterSortedSearchResults?[0].name == "Test Waiter1")
+        XCTAssertTrue(waiterSortedSearchResults?[1].name == "Test Waiter2")
+        XCTAssertTrue(waiterSortedSearchResults?[2].name == "Test Waiter3")
     }
     
     func testCreateDeleteShift() {
@@ -121,8 +121,8 @@ class WaiterTests: XCTestCase {
         let searchResults: [Waiter] = try! DatabaseHandler.getContext().fetch(fetchRequest) as [Waiter]
         
         // check that only 1 result was returned
-        assert(searchResults.count == 1)
-        assert((searchResults.first?.shifts?.count)! == 1)
+        XCTAssertTrue(searchResults.count == 1)
+        XCTAssertTrue((searchResults.first?.shifts?.count)! == 1)
         
         // delete shift
         waiter.deleteShift(shift: shift1)
@@ -135,7 +135,7 @@ class WaiterTests: XCTestCase {
         let searchResults2: [Waiter] = try! DatabaseHandler.getContext().fetch(fetchRequest2) as [Waiter]
         
         // check that only 1 result was returned
-        assert(searchResults2.count == 1)
-        assert((searchResults2.first?.shifts?.count)! == 0)
+        XCTAssertTrue(searchResults2.count == 1)
+        XCTAssertTrue((searchResults2.first?.shifts?.count)! == 0)
     }
 }

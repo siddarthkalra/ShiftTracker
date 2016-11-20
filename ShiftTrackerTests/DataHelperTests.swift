@@ -43,15 +43,15 @@ class DataHelperTests: XCTestCase {
     
     func testStringFromDate() {
         let dateStr = DateHelper.stringFromDate(date: self.testDate! as NSDate)
-        assert(dateStr == self.testDateStrShortStyle)
+        XCTAssertTrue(dateStr == self.testDateStrShortStyle)
     }
     
     func testStringFromDateWithFormat() {
         let dateStr = DateHelper.stringFromDate(date: self.testDate!, withDateFormat: "yyyy/MM/dd h:m a")
         let dateStr2 = DateHelper.stringFromDate(date: self.testDate! as NSDate, withDateFormat: "yyyy/MM/dd h:m a")
         
-        assert(dateStr == "2009/06/15 5:20 AM")
-        assert(dateStr2 == "2009/06/15 5:20 AM")
+        XCTAssertTrue(dateStr == "2009/06/15 5:20 AM")
+        XCTAssertTrue(dateStr2 == "2009/06/15 5:20 AM")
     }
     
     func testDatesAreOnSameDay() {
@@ -69,7 +69,7 @@ class DataHelperTests: XCTestCase {
         components.minute = 50
         
         let dateSameDay = calendar.date(from: components)
-        assert(DateHelper.datesAreOnSameDay(date1: date1!, date2: dateSameDay!))
+        XCTAssertTrue(DateHelper.datesAreOnSameDay(date1: date1!, date2: dateSameDay!))
         
         // Create a date that is on a different day
         var components2 = DateComponents()
@@ -80,6 +80,6 @@ class DataHelperTests: XCTestCase {
         components2.minute = 50
 
         let dateDiffDay = calendar.date(from: components2)
-        assert(!DateHelper.datesAreOnSameDay(date1: date1!, date2: dateDiffDay!))
+        XCTAssertTrue(!DateHelper.datesAreOnSameDay(date1: date1!, date2: dateDiffDay!))
     }
 }
